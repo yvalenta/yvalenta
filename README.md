@@ -1,5 +1,5 @@
 # 💫 About Me:
-🔭 I’m currently working on Globant<br>🐶 I’m looking to collaborate on Animals causes<br>💬 Ask me about RoR development<br>
+🔭 Currently working as a Sr. software developer at Globant.<br>🐶 Passionate about animal welfare causes and looking to collaborate in any way possible.<br>💬 Experienced in Ruby on Rails development and happy to answer any questions related to it.<br>
 
 
 ## 🌐 Socials:
