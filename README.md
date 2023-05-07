@@ -1,5 +1,5 @@
 # 💫 About Me:
-🔭 I’m currently working on Skydropx<br>🐶 I’m looking to collaborate on Animals causes<br>💬 Ask me about RoR development<br>
+🔭 I’m currently working on Globant<br>🐶 I’m looking to collaborate on Animals causes<br>💬 Ask me about RoR development<br>
 
 
 ## 🌐 Socials:
