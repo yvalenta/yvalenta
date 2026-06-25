@@ -1,0 +1,213 @@
+<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Home Lab Architecture — Yonatan Valencia</title>
+  <desc>Self-hosted infrastructure with Cloudflare Tunnels, Docker, Portainer and Netdata</desc>
+
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap');
+
+      .bg        { fill: #0d1117; }
+      .card      { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
+      .card-cf   { fill: #1a1f2e; stroke: #F38020; stroke-width: 1.5; }
+      .card-dock { fill: #0f1929; stroke: #2496ED; stroke-width: 1.5; }
+      .card-app  { fill: #161b22; stroke: #30363d; stroke-width: 1; }
+      .card-net  { fill: #0f1a14; stroke: #00AB44; stroke-width: 1; }
+
+      .label-main { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; fill: #e6edf3; }
+      .label-sub  { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 400; fill: #8b949e; }
+      .label-cf   { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; fill: #F38020; }
+      .label-dock { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; fill: #2496ED; }
+      .label-app  { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; fill: #c9d1d9; }
+      .label-net  { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; fill: #00AB44; }
+      .label-url  { font-family: 'JetBrains Mono', monospace; font-size: 9px;  font-weight: 400; fill: #58a6ff; }
+      .label-port { font-family: 'JetBrains Mono', monospace; font-size: 9px;  font-weight: 400; fill: #8b949e; }
+
+      .arrow-cf   { stroke: #F38020; stroke-width: 1.5; fill: none; stroke-dasharray: 5 3; }
+      .arrow-dock { stroke: #2496ED; stroke-width: 1.5; fill: none; }
+      .arrow-app  { stroke: #30363d; stroke-width: 1;   fill: none; }
+      .arrow-net  { stroke: #00AB44; stroke-width: 1;   fill: none; stroke-dasharray: 3 3; }
+
+      .dot-cf   { fill: #F38020; }
+      .dot-dock { fill: #2496ED; }
+      .dot-net  { fill: #00AB44; }
+
+      .section-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 400; fill: #484f58; text-transform: uppercase; letter-spacing: 0.1em; }
+
+      /* pulse animations on the dots */
+      .pulse-cf {
+        animation: pulse-cf 2s ease-in-out infinite;
+        transform-origin: 70px 140px;
+      }
+      .pulse-dock {
+        animation: pulse-dock 2.4s ease-in-out infinite 0.4s;
+        transform-origin: 70px 250px;
+      }
+      .pulse-net {
+        animation: pulse-net 2.8s ease-in-out infinite 0.8s;
+        transform-origin: 620px 330px;
+      }
+
+      @keyframes pulse-cf {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%       { opacity: 0.5; transform: scale(1.4); }
+      }
+      @keyframes pulse-dock {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%       { opacity: 0.5; transform: scale(1.4); }
+      }
+      @keyframes pulse-net {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%       { opacity: 0.5; transform: scale(1.4); }
+      }
+
+      /* flow animations on arrows */
+      .flow-cf {
+        stroke-dasharray: 5 3;
+        animation: flow 1.6s linear infinite;
+      }
+      .flow-dock {
+        animation: flow 1.2s linear infinite;
+      }
+      .flow-app {
+        animation: flow 1.8s linear infinite 0.3s;
+      }
+
+      @keyframes flow {
+        to { stroke-dashoffset: -16; }
+      }
+
+      /* fade-in for cards */
+      .fade-1 { animation: fadein 0.6s ease both; }
+      .fade-2 { animation: fadein 0.6s ease 0.15s both; }
+      .fade-3 { animation: fadein 0.6s ease 0.3s  both; }
+      .fade-4 { animation: fadein 0.6s ease 0.45s both; }
+      .fade-5 { animation: fadein 0.6s ease 0.6s  both; }
+      .fade-6 { animation: fadein 0.6s ease 0.75s both; }
+      .fade-7 { animation: fadein 0.6s ease 0.9s  both; }
+
+      @keyframes fadein {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+
+    <!-- arrowhead markers -->
+    <marker id="arr-cf"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#F38020"/>
+    </marker>
+    <marker id="arr-dock" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2496ED"/>
+    </marker>
+    <marker id="arr-app"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#30363d"/>
+    </marker>
+    <marker id="arr-net"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#00AB44"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" class="bg"/>
+
+  <!-- ── INTERNET ─────────────────────────────── -->
+  <g class="fade-1">
+    <rect x="20" y="20" width="120" height="52" rx="8" class="card"/>
+    <text x="80" y="42" text-anchor="middle" class="label-main">Internet</text>
+    <text x="80" y="58" text-anchor="middle" class="label-sub">HTTPS</text>
+  </g>
+
+  <!-- arrow internet → cloudflare -->
+  <line x1="140" y1="46" x2="194" y2="46" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
+  <text x="167" y="40" text-anchor="middle" class="label-sub">TLS</text>
+
+  <!-- ── CLOUDFLARE ─────────────────────────────── -->
+  <g class="fade-2">
+    <rect x="196" y="20" width="170" height="52" rx="8" class="card-cf"/>
+    <text x="281" y="38" text-anchor="middle" class="label-cf">☁ Cloudflare</text>
+    <text x="281" y="54" text-anchor="middle" class="label-sub">DNS · TLS · DDoS protect</text>
+    <!-- pulse dot -->
+    <circle cx="358" cy="46" r="4" class="dot-cf pulse-cf"/>
+  </g>
+
+  <!-- arrow cloudflare → tunnel (dashed = encrypted) -->
+  <line x1="366" y1="46" x2="420" y2="46" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
+  <text x="393" y="40" text-anchor="middle" class="label-sub">tunnel</text>
+
+  <!-- ── TUNNEL ──────────────────────────────── -->
+  <g class="fade-3">
+    <rect x="422" y="20" width="170" height="52" rx="8" class="card-cf"/>
+    <text x="507" y="38" text-anchor="middle" class="label-cf">cloudflared</text>
+    <text x="507" y="54" text-anchor="middle" class="label-sub">outbound · no open ports</text>
+  </g>
+
+  <!-- arrow tunnel → docker (vertical) -->
+  <line x1="507" y1="72" x2="507" y2="112" class="arrow-dock flow-dock" marker-end="url(#arr-dock)"/>
+
+  <!-- ── DOCKER ENGINE ───────────────────────── -->
+  <g class="fade-4">
+    <rect x="140" y="114" width="560" height="234" rx="12" class="card-dock"/>
+    <text x="420" y="136" text-anchor="middle" class="label-dock">🐳 Docker Engine</text>
+    <text x="420" y="150" text-anchor="middle" class="label-sub">Ubuntu Server · home lab</text>
+  </g>
+
+  <!-- ── nginx-proxy-manager ───────────────── -->
+  <g class="fade-5">
+    <rect x="160" y="162" width="170" height="52" rx="8" class="card-app"/>
+    <text x="245" y="182" text-anchor="middle" class="label-app">nginx-proxy-mgr</text>
+    <text x="245" y="198" text-anchor="middle" class="label-port">:80 · :443 · routes by host</text>
+  </g>
+
+  <!-- ── Portainer ──────────────────────────── -->
+  <g class="fade-5">
+    <rect x="350" y="162" width="160" height="52" rx="8" class="card-app"/>
+    <text x="430" y="182" text-anchor="middle" class="label-app">Portainer</text>
+    <text x="430" y="198" text-anchor="middle" class="label-url">portainer.ynt.codes</text>
+  </g>
+
+  <!-- nginx → cv_app -->
+  <line x1="200" y1="214" x2="200" y2="258" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+  <!-- nginx → loan_calculator -->
+  <line x1="295" y1="214" x2="340" y2="258" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+
+  <!-- ── cv_app ──────────────────────────────── -->
+  <g class="fade-6">
+    <rect x="160" y="260" width="150" height="52" rx="8" class="card-app"/>
+    <text x="235" y="280" text-anchor="middle" class="label-app">cv_app</text>
+    <text x="235" y="294" text-anchor="middle" class="label-url">cv.ynt.codes</text>
+    <text x="235" y="306" text-anchor="middle" class="label-port">:80 · HTML</text>
+  </g>
+
+  <!-- ── loan_calculator ────────────────────── -->
+  <g class="fade-6">
+    <rect x="330" y="260" width="160" height="52" rx="8" class="card-app"/>
+    <text x="410" y="280" text-anchor="middle" class="label-app">loan_calculator</text>
+    <text x="410" y="294" text-anchor="middle" class="label-url">loan_calculator.ynt.codes</text>
+    <text x="410" y="306" text-anchor="middle" class="label-port">:80 · React</text>
+  </g>
+
+  <!-- ── Netdata ─────────────────────────────── -->
+  <g class="fade-7">
+    <rect x="512" y="162" width="170" height="170" rx="8" class="card-net"/>
+    <text x="597" y="184" text-anchor="middle" class="label-net">📊 Netdata</text>
+    <text x="597" y="200" text-anchor="middle" class="label-sub">real-time monitoring</text>
+    <line x1="530" y1="210" x2="678" y2="210" stroke="#1a2e1a" stroke-width="1"/>
+    <text x="540" y="224" class="label-sub">● CPU &amp; memory</text>
+    <text x="540" y="240" class="label-sub">● SSH sessions</text>
+    <text x="540" y="256" class="label-sub">● nginx traffic</text>
+    <text x="540" y="272" class="label-sub">● network I/O</text>
+    <text x="540" y="288" class="label-sub">● Docker stats</text>
+    <!-- pulse dot -->
+    <circle cx="673" cy="184" r="4" class="dot-net pulse-net"/>
+  </g>
+
+  <!-- ── AI WORKFLOW STRIP ───────────────────── -->
+  <g class="fade-7">
+    <rect x="20" y="368" width="760" height="38" rx="8" fill="#0f1a2e" stroke="#1f3a5f" stroke-width="1"/>
+    <text x="400" y="383" text-anchor="middle" class="label-sub">🤖  AI-assisted build</text>
+    <text x="400" y="397" text-anchor="middle" class="label-sub">Claude · architecture · debugging · configs · security review · docs</text>
+  </g>
+
+  <!-- Section labels -->
+  <text x="20"  y="14" class="section-label">public layer</text>
+  <text x="140" y="110" class="section-label">private server — no open ports</text>
+</svg>
