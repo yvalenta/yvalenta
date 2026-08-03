@@ -10,6 +10,7 @@
       .e-marca { stroke: #D67449; stroke-width: 1.2; fill: none; opacity: 0.45; }
       .e-proj  { stroke: #a371f7; stroke-width: 1.0; fill: none; opacity: 0.35; stroke-dasharray: 4 3; }
       .e-dep   { stroke: #13BEF9; stroke-width: 1.2; fill: none; opacity: 0.45; }
+      .e-verif { stroke: #db61a2; stroke-width: 1.2; fill: none; opacity: 0.45; }
       .e-dim   { stroke: #30363d; stroke-width: 0.8; fill: none; opacity: 0.3; }
       .e-flow  { stroke-dasharray: 5 3; animation: flowmove 1.8s linear infinite; }
       .e-flow2 { stroke-dasharray: 4 3; animation: flowmove 1.4s linear infinite; }
@@ -22,6 +23,7 @@
       .n-marca  { fill: #1e1409; stroke: #D67449; stroke-width: 1.5; }
       .n-dep    { fill: #0a1a22; stroke: #13BEF9; stroke-width: 1.5; }
       .n-proj   { fill: #130f1e; stroke: #a371f7; stroke-width: 1.5; }
+      .n-verif  { fill: #1e0f18; stroke: #db61a2; stroke-width: 1.5; }
       .s-ai    { fill: #1f1030; stroke: #F38020; stroke-width: 0.8; }
       .s-core  { fill: #0f1e36; stroke: #58a6ff; stroke-width: 0.8; }
       .s-infra { fill: #0a2018; stroke: #3fb950; stroke-width: 0.8; }
@@ -31,6 +33,8 @@
       .s-proj  { fill: #161b22; stroke: #8b949e; stroke-width: 0.8; }
       .s-adv   { fill: #150f2a; stroke: #a371f7; stroke-width: 0.8; }
       .s-resp  { fill: #241708; stroke: #D67449; stroke-width: 0.8; }
+      .s-verif { fill: #200d17; stroke: #db61a2; stroke-width: 0.8; }
+      .s-nomi  { fill: #1c0f18; stroke: #db61a2; stroke-width: 0.8; }
       .t-title  { font-size: 15px; font-weight: 700; fill: #e6edf3; }
       .t-sub    { font-size: 9.5px;  font-weight: 400; fill: #8b949e; }
       .t-ai     { font-size: 12px; font-weight: 700; fill: #F38020; }
@@ -40,6 +44,8 @@
       .t-marca  { font-size: 12px; font-weight: 700; fill: #D67449; }
       .t-dep    { font-size: 12px; font-weight: 700; fill: #13BEF9; }
       .t-proj   { font-size: 12px; font-weight: 700; fill: #a371f7; }
+      .t-verif  { font-size: 12px; font-weight: 700; fill: #db61a2; }
+      .t-vf     { font-size: 12px; font-weight: 700; fill: #f07fb8; }
       .t-sk     { font-size: 9px;  font-weight: 700; fill: #c9d1d9; }
       .t-sm     { font-size: 8px; font-weight: 400; fill: #8b949e; }
       .t-yr     { font-size: 7.5px;  font-weight: 400; fill: #484f58; }
@@ -49,14 +55,19 @@
       .pulse-ai    { animation: pa 2.5s ease-in-out infinite; }
       .pulse-dep   { animation: pd 2.2s ease-in-out infinite 0.3s; }
       .pulse-marca { animation: pm 2.6s ease-in-out infinite 0.5s; }
+      .pulse-verif { animation: pv 2.3s ease-in-out infinite 0.15s; }
       @keyframes pa { 0%,100%{opacity:1;}50%{opacity:0.65;} }
       @keyframes pd { 0%,100%{opacity:1;}50%{opacity:0.65;} }
       @keyframes pm { 0%,100%{opacity:1;}50%{opacity:0.65;} }
-      .fi1 { animation: fi 0.5s ease both; }
-      .fi2 { animation: fi 0.5s 0.1s ease both; }
-      .fi3 { animation: fi 0.5s 0.2s ease both; }
-      .fi4 { animation: fi 0.5s 0.3s ease both; }
-      @keyframes fi { from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);} }</style>
+      @keyframes pv { 0%,100%{opacity:1;}50%{opacity:0.65;} }
+      /* NO entrance animation here, deliberately. Anything whose first keyframe
+         is opacity 0 disappears wherever the SVG is rasterised at t=0 — which is
+         what happens when it is embedded as an img element, the way GitHub
+         renders a README image. Both diagrams used to do exactly that: every
+         labelled group vanished and only the connector lines survived. The
+         looping motion above (flow, pulse, glow) is safe because its 0% state is
+         the fully visible one. The fi1-fi4 classes stay on the groups as hooks. */
+    </style>
  </defs>
  <!-- ===== center -> hub trunk lines ===== -->
  <!-- ===== AI & Agentic branch ===== -->
@@ -102,7 +113,12 @@
   <line class="e-infra e-flow" id="svg_20" x1="700" x2="190" y1="650" y2="655"/>
   <line class="e-obs e-flow" id="svg_21" x1="700" x2="1210" y1="650" y2="655"/>
   <line class="e-marca e-flow" id="svg_22" x1="700" x2="295" y1="650" y2="1045"/>
-  <line class="e-proj" id="svg_23" x1="700" x2="700" y1="650" y2="1095"/>
+  <line class="e-verif e-flow" id="svg_23" x1="700" x2="700" y1="650" y2="856"/>
+  <line class="e-proj" id="svg_23b" x1="700" x2="700" y1="904" y2="1095"/>
+  <line class="e-verif" id="svg_23c" x1="700" x2="870" y1="880" y2="803"/>
+  <line class="e-verif" id="svg_23d" x1="700" x2="870" y1="880" y2="873"/>
+  <line class="e-verif" id="svg_23e" x1="700" x2="870" y1="880" y2="943"/>
+  <line class="e-verif" id="svg_23f" x1="700" x2="595" y1="880" y2="973"/>
   <line class="e-dep" id="svg_24" x1="700" x2="700" y1="140" y2="480"/>
   <line class="e-infra" id="svg_25" x1="190" x2="410" y1="655" y2="480"/>
   <line class="e-ai" id="svg_26" x1="295" x2="110" y1="240" y2="93"/>
@@ -139,12 +155,13 @@
   <line class="e-marca" id="svg_57" x1="295" x2="110" y1="1045" y2="1003"/>
   <line class="e-marca" id="svg_58" x1="295" x2="110" y1="1045" y2="1083"/>
   <line class="e-marca" id="svg_59" x1="295" x2="330" y1="1045" y2="1163"/>
-  <line class="e-proj" id="svg_60" x1="700" x2="145" y1="1095" y2="1215"/>
-  <line class="e-proj" id="svg_61" x1="700" x2="390" y1="1095" y2="1216"/>
-  <line class="e-proj" id="svg_62" x1="700" x2="615" y1="1095" y2="1220"/>
-  <line class="e-proj" id="svg_63" x1="700" x2="840" y1="1095" y2="1220"/>
-  <line class="e-proj" id="svg_64" x1="700" x2="1060" y1="1095" y2="1220"/>
-  <line class="e-proj" id="svg_65" x1="700" x2="1280" y1="1095" y2="1215"/>
+  <line class="e-proj" id="svg_60" x1="700" x2="112" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_61" x1="700" x2="308" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_62" x1="700" x2="504" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_63" x1="700" x2="700" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_64" x1="700" x2="896" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_65" x1="700" x2="1092" y1="1095" y2="1170"/>
+  <line class="e-proj" id="svg_66" x1="700" x2="1288" y1="1095" y2="1170"/>
   <line class="e-dim" id="svg_66" x1="200" x2="700" y1="333" y2="43"/>
   <line class="e-dim" id="svg_67" x1="1087" x2="1300" y1="583" y2="383"/>
   <g class="fi1" id="svg_68">
@@ -229,10 +246,10 @@
   <g class="fi4" id="svg_132">
    <rect fill="#08131e" height="100" id="svg_133" opacity="0.9" rx="10" stroke="#13BEF9" width="640" x="380" y="430"/>
    <text fill="#13BEF9" font-size="10.5" font-weight="700" id="svg_134" text-anchor="middle" x="700" y="452">🌐  HOMELAB-TUNNEL · CLOUDFLARE ROUTING</text>
-   <text class="t-sm" id="svg_135" text-anchor="middle" x="700" y="470">cv · loan_calculator · portainer · advance-fitness-app → *.ynt.codes (public apps)</text>
-   <text class="t-sm" id="svg_136" text-anchor="middle" x="700" y="484">loan_calculator · portainer también expuestos como private hostnames (solo interno)</text>
-   <text class="t-sm" id="svg_137" text-anchor="middle" x="700" y="498">1 túnel nombrado · sin puertos abiertos · SSL terminado en el edge de Cloudflare</text>
-   <text class="t-yr" id="svg_138" text-anchor="middle" x="700" y="516">docker-lab-cloudflared-1 → docker-lab_proxy-network → rails-app:80</text>
+   <text class="t-sm" id="svg_135" text-anchor="middle" x="700" y="470">túnel → nomicheck · advance-fitness-app (+ comercial · join · vital-fitness) · homelab · loan_calculator</text>
+   <text class="t-sm" id="svg_136" text-anchor="middle" x="700" y="484">Worker de Cloudflare, sin servidor → ynt.codes (agent card · catálogo ARD · verificador) y cv</text>
+   <text class="t-sm" id="svg_137" text-anchor="middle" x="700" y="498">resplandor → GitHub Pages · advance-fitness → Netlify · 1 túnel nombrado, sin puertos abiertos</text>
+   <text class="t-yr" id="svg_138" text-anchor="middle" x="700" y="516">docker-lab_proxy-network → rails-app:80 · nomicheck-api 127.0.0.1:3002 · nomicheck-db en red aislada</text>
   </g>
   <g class="fi2" id="svg_139">
    <rect class="n-core" height="48" id="svg_140" rx="10" width="170" x="1020" y="216"/>
@@ -276,8 +293,8 @@
   </g>
   <g class="fi3" id="svg_171">
    <rect class="s-infra" height="46" id="svg_172" rx="7" width="190" x="10" y="480"/>
-   <text class="t-sk" id="svg_173" text-anchor="middle" x="105" y="500">Docker · Portainer</text>
-   <text class="t-sm" id="svg_174" text-anchor="middle" x="105" y="514">containers · volumes (homelab)</text>
+   <text class="t-sk" id="svg_173" text-anchor="middle" x="105" y="500">Docker · Compose</text>
+   <text class="t-sm" id="svg_174" text-anchor="middle" x="105" y="514">containers · redes · volúmenes</text>
   </g>
   <g class="fi3" id="svg_175">
    <rect class="s-infra" height="46" id="svg_176" rx="7" width="190" x="10" y="560"/>
@@ -297,7 +314,7 @@
   <g class="fi3" id="svg_187">
    <rect class="s-dep" height="46" id="svg_188" rx="7" width="190" x="220" y="560"/>
    <text class="t-sk" id="svg_189" text-anchor="middle" x="315" y="580">Uptime Kuma</text>
-   <text class="t-sm" id="svg_190" text-anchor="middle" x="315" y="594">status page · alertas · :3001</text>
+   <text class="t-sm" id="svg_190" text-anchor="middle" x="315" y="594">loopback :3001 · alertas</text>
   </g>
   <g class="fi3" id="svg_191">
    <rect class="s-infra" height="46" id="svg_192" rx="7" width="190" x="210" y="800"/>
@@ -364,71 +381,111 @@
    <text class="t-sk" id="svg_241" text-anchor="middle" x="331" y="1135">WhatsApp CTA</text>
    <text class="t-sm" id="svg_242" text-anchor="middle" x="331" y="1149">AOS · Lucide · Google Fonts</text>
   </g>
+  <g class="fi2 pulse-verif" id="svg_v0">
+   <rect class="n-verif" height="48" id="svg_v1" rx="10" width="170" x="615" y="856"/>
+   <text class="t-verif" id="svg_v2" text-anchor="middle" x="700" y="876">🔏 Verifiable Compute</text>
+   <text class="t-sm" id="svg_v3" text-anchor="middle" x="700" y="892">firmar · cobrar · demostrar</text>
+  </g>
+  <g class="fi3" id="svg_v4">
+   <rect class="s-verif" height="46" id="svg_v5" rx="7" width="180" x="780" y="780"/>
+   <text class="t-sk" id="svg_v6" text-anchor="middle" x="870" y="800">Sobres Ed25519</text>
+   <text class="t-sm" id="svg_v7" text-anchor="middle" x="870" y="814">JSON canónico · verifica offline</text>
+  </g>
+  <g class="fi3" id="svg_v8">
+   <rect class="s-verif" height="46" id="svg_v9" rx="7" width="180" x="780" y="850"/>
+   <text class="t-sk" id="svg_v10" text-anchor="middle" x="870" y="870">Muro x402</text>
+   <text class="t-sm" id="svg_v11" text-anchor="middle" x="870" y="884">402 antes de servir · EIP-3009</text>
+  </g>
+  <g class="fi3" id="svg_v12">
+   <rect class="s-verif" height="46" id="svg_v13" rx="7" width="180" x="780" y="920"/>
+   <text class="t-sk" id="svg_v14" text-anchor="middle" x="870" y="940">ERC-8004 · ERC-8128</text>
+   <text class="t-sm" id="svg_v15" text-anchor="middle" x="870" y="954">identidad on-chain · Base · USDC</text>
+  </g>
+  <g class="fi3" id="svg_v16">
+   <rect class="s-verif" height="46" id="svg_v17" rx="7" width="190" x="500" y="950"/>
+   <text class="t-sk" id="svg_v18" text-anchor="middle" x="595" y="970">Agent card · ARD</text>
+   <text class="t-sm" id="svg_v19" text-anchor="middle" x="595" y="984">A2A · descubrimiento federado</text>
+  </g>
   <g class="fi2" id="svg_243">
    <rect class="n-proj" height="48" id="svg_244" rx="10" width="170" x="615" y="1071"/>
    <text class="t-proj" id="svg_245" text-anchor="middle" x="700" y="1091">📁 Projects</text>
    <text class="t-sm" id="svg_246" text-anchor="middle" x="700" y="1107">by client · by domain</text>
   </g>
-  <g class="fi4" id="svg_247">
-   <rect class="s-adv" height="90" id="svg_248" rx="9" width="230" x="30" y="1170"/>
-   <rect fill="none" height="90" id="svg_249" opacity="0.6" rx="9" stroke="#a371f7" stroke-width="1.5" width="230" x="30" y="1170"/>
-   <text class="t-proj" id="svg_250" text-anchor="middle" x="145" y="1190">✦ Advance Fitness</text>
-   <text class="t-sm" id="svg_251" text-anchor="middle" x="145" y="1205">Rails 8.1 · Gemini · Claude</text>
-   <text class="t-sm" id="svg_252" text-anchor="middle" x="145" y="1217">Supabase · Kamal 2</text>
-   <text class="t-sm" id="svg_253" text-anchor="middle" x="145" y="1229">Catálogo ejercicios · IA plans</text>
-   <text class="t-yr" id="svg_254" text-anchor="middle" x="145" y="1250">Home Lab · 2025 · Active</text>
+  <g class="fi4" id="svg_p1">
+   <rect class="s-proj" height="90" id="svg_p1r" rx="9" width="180" x="22" y="1170"/>
+   <text class="t-sk" id="svg_p1t" text-anchor="middle" x="112" y="1190">Runa HR</text>
+   <text class="t-sm" id="svg_p1l0" text-anchor="middle" x="112" y="1206">SLI/SLO · TDD 8%→40%</text>
+   <text class="t-sm" id="svg_p1l1" text-anchor="middle" x="112" y="1219">New Relic · Datadog · Grafana</text>
+   <text class="t-sm" id="svg_p1l2" text-anchor="middle" x="112" y="1232">SOAP/SSO integrations</text>
+   <text class="t-yr" id="svg_p1y" text-anchor="middle" x="112" y="1250">2019–2021</text>
   </g>
-  <g class="fi4" id="svg_255">
-   <rect class="s-resp" height="72" id="svg_256" rx="9" width="200" x="290" y="1180"/>
-   <rect fill="none" height="72" id="svg_257" opacity="0.6" rx="9" stroke="#D67449" stroke-width="1.5" width="200" x="290" y="1180"/>
-   <text class="t-marca" id="svg_258" text-anchor="middle" x="390" y="1200">✦ Resplandor</text>
-   <text class="t-sm" id="svg_259" text-anchor="middle" x="390" y="1215">Restaurante · Medellín</text>
-   <text class="t-sm" id="svg_260" text-anchor="middle" x="390" y="1228">Landing + sistema de marca</text>
-   <text class="t-yr" id="svg_261" text-anchor="middle" x="390" y="1244">Emprendimiento · Activo</text>
+  <g class="fi4" id="svg_p2">
+   <rect class="s-proj" height="90" id="svg_p2r" rx="9" width="180" x="218" y="1170"/>
+   <text class="t-sk" id="svg_p2t" text-anchor="middle" x="308" y="1190">Skydropx</text>
+   <text class="t-sm" id="svg_p2l0" text-anchor="middle" x="308" y="1206">monolito → microservicios</text>
+   <text class="t-sm" id="svg_p2l1" text-anchor="middle" x="308" y="1219">Rails · APIs · REST</text>
+   <text class="t-yr" id="svg_p2y" text-anchor="middle" x="308" y="1250">2022–2023</text>
   </g>
-  <g class="fi4" id="svg_262">
-   <rect class="s-proj" height="60" id="svg_263" rx="8" width="190" x="520" y="1190"/>
-   <text class="t-sk" id="svg_264" text-anchor="middle" x="615" y="1208">Panorama Education</text>
-   <text class="t-sm" id="svg_265" text-anchor="middle" x="615" y="1222">Solara AI · LangChain · Bedrock</text>
-   <text class="t-yr" id="svg_266" text-anchor="middle" x="615" y="1236">Globant · 2024–2025</text>
+  <g class="fi4" id="svg_p3">
+   <rect class="s-proj" height="90" id="svg_p3r" rx="9" width="180" x="414" y="1170"/>
+   <text class="t-sk" id="svg_p3t" text-anchor="middle" x="504" y="1190">Panorama Education</text>
+   <text class="t-sm" id="svg_p3l0" text-anchor="middle" x="504" y="1206">Solara AI · LangChain</text>
+   <text class="t-sm" id="svg_p3l1" text-anchor="middle" x="504" y="1219">Amazon Bedrock · RAG</text>
+   <text class="t-yr" id="svg_p3y" text-anchor="middle" x="504" y="1250">Globant · 2024–2025</text>
   </g>
-  <g class="fi4" id="svg_267">
-   <rect class="s-proj" height="60" id="svg_268" rx="8" width="200" x="740" y="1190"/>
-   <text class="t-sk" id="svg_269" text-anchor="middle" x="840" y="1208">Dojo / AI Pod</text>
-   <text class="t-sm" id="svg_270" text-anchor="middle" x="840" y="1222">ES→MongoDB · n8n · AWS Batch</text>
-   <text class="t-yr" id="svg_271" text-anchor="middle" x="840" y="1236">Globant · 2025–now</text>
+  <g class="fi4" id="svg_p4">
+   <rect class="s-proj" height="90" id="svg_p4r" rx="9" width="180" x="610" y="1170"/>
+   <text class="t-sk" id="svg_p4t" text-anchor="middle" x="700" y="1190">Dojo / AI Pod</text>
+   <text class="t-sm" id="svg_p4l0" text-anchor="middle" x="700" y="1206">ES→MongoDB · n8n</text>
+   <text class="t-sm" id="svg_p4l1" text-anchor="middle" x="700" y="1219">AWS Batch · pipelines</text>
+   <text class="t-yr" id="svg_p4y" text-anchor="middle" x="700" y="1250">Globant · 2025–now</text>
   </g>
-  <g class="fi4" id="svg_272">
-   <rect class="s-proj" height="60" id="svg_273" rx="8" width="180" x="970" y="1190"/>
-   <text class="t-sk" id="svg_274" text-anchor="middle" x="1060" y="1208">Skydropx</text>
-   <text class="t-sm" id="svg_275" text-anchor="middle" x="1060" y="1222">monolito → microservicios</text>
-   <text class="t-yr" id="svg_276" text-anchor="middle" x="1060" y="1236">2022–2023</text>
+  <g class="fi4" id="svg_p5">
+   <rect class="s-adv" height="90" id="svg_p5r" rx="9" width="180" x="806" y="1170"/>
+   <rect fill="none" height="90" id="svg_p5o" opacity="0.6" rx="9" stroke="#a371f7" stroke-width="1.5" width="180" x="806" y="1170"/>
+   <text class="t-proj" id="svg_p5t" text-anchor="middle" x="896" y="1190">✦ Advance Fitness</text>
+   <text class="t-sm" id="svg_p5l0" text-anchor="middle" x="896" y="1206">Rails 8.1 · Gemini · Claude</text>
+   <text class="t-sm" id="svg_p5l1" text-anchor="middle" x="896" y="1219">Supabase · Kamal 2</text>
+   <text class="t-sm" id="svg_p5l2" text-anchor="middle" x="896" y="1232">4 tenants · planes con IA</text>
+   <text class="t-yr" id="svg_p5y" text-anchor="middle" x="896" y="1250">Home Lab · Activo</text>
   </g>
-  <g class="fi4" id="svg_277">
-   <rect class="s-proj" height="90" id="svg_278" rx="8" width="200" x="1180" y="1170"/>
-   <text class="t-sk" id="svg_279" text-anchor="middle" x="1280" y="1190">Runa HR</text>
-   <text class="t-sm" id="svg_280" text-anchor="middle" x="1280" y="1204">SLI/SLO · TDD 8%→40%</text>
-   <text class="t-sm" id="svg_281" text-anchor="middle" x="1280" y="1216">New Relic · Datadog · Grafana</text>
-   <text class="t-sm" id="svg_282" text-anchor="middle" x="1280" y="1229">SOAP/SSO integrations</text>
-   <text class="t-yr" id="svg_283" text-anchor="middle" x="1280" y="1250">2019–2021</text>
+  <g class="fi4" id="svg_p6">
+   <rect class="s-nomi" height="90" id="svg_p6r" rx="9" width="180" x="1002" y="1170"/>
+   <rect fill="none" height="90" id="svg_p6o" opacity="0.6" rx="9" stroke="#db61a2" stroke-width="1.5" width="180" x="1002" y="1170"/>
+   <text class="t-vf" id="svg_p6t" text-anchor="middle" x="1092" y="1190">✦ NomiCheck</text>
+   <text class="t-sm" id="svg_p6l0" text-anchor="middle" x="1092" y="1206">nómina colombiana verificable</text>
+   <text class="t-sm" id="svg_p6l1" text-anchor="middle" x="1092" y="1219">x402 · Ed25519 · Base</text>
+   <text class="t-sm" id="svg_p6l2" text-anchor="middle" x="1092" y="1232">TypeScript · Express · Prisma</text>
+   <text class="t-yr" id="svg_p6y" text-anchor="middle" x="1092" y="1250">Home Lab · Activo</text>
+  </g>
+  <g class="fi4" id="svg_p7">
+   <rect class="s-resp" height="90" id="svg_p7r" rx="9" width="180" x="1198" y="1170"/>
+   <rect fill="none" height="90" id="svg_p7o" opacity="0.6" rx="9" stroke="#D67449" stroke-width="1.5" width="180" x="1198" y="1170"/>
+   <text class="t-marca" id="svg_p7t" text-anchor="middle" x="1288" y="1190">✦ Resplandor</text>
+   <text class="t-sm" id="svg_p7l0" text-anchor="middle" x="1288" y="1206">Restaurante · La Estrella, Ant.</text>
+   <text class="t-sm" id="svg_p7l1" text-anchor="middle" x="1288" y="1219">POS: mesas · cuentas · cierre</text>
+   <text class="t-sm" id="svg_p7l2" text-anchor="middle" x="1288" y="1232">+ landing y marca</text>
+   <text class="t-yr" id="svg_p7y" text-anchor="middle" x="1288" y="1250">Emprendimiento · Activo</text>
   </g>
   <rect fill="#161b22" height="36" id="svg_284" rx="7" stroke="#30363d" stroke-width="0.5" width="1368" x="16" y="1290"/>
-  <circle cx="36" cy="1308" fill="#F38020" id="svg_285" r="5"/>
-  <text class="t-leg" id="svg_286" x="46" y="1312">AI &amp; Agentic</text>
-  <circle cx="165" cy="1308" fill="#58a6ff" id="svg_287" r="5"/>
-  <text class="t-leg" id="svg_288" x="175" y="1312">Core Backend</text>
-  <circle cx="295" cy="1308" fill="#3fb950" id="svg_289" r="5"/>
-  <text class="t-leg" id="svg_290" x="305" y="1312">Infra &amp; Ops</text>
-  <circle cx="415" cy="1308" fill="#e3b341" id="svg_291" r="5"/>
-  <text class="t-leg" id="svg_292" x="425" y="1312">Observability</text>
-  <circle cx="545" cy="1308" fill="#13BEF9" id="svg_293" r="5"/>
-  <text class="t-leg" id="svg_294" x="555" y="1312">Deploy / DevOps</text>
-  <circle cx="700" cy="1308" fill="#D67449" id="svg_295" r="5"/>
-  <text class="t-leg" id="svg_296" x="710" y="1312">Marca &amp; Negocio</text>
-  <circle cx="850" cy="1308" fill="#a371f7" id="svg_297" r="5"/>
-  <text class="t-leg" id="svg_298" x="860" y="1312">Projects</text>
-  <circle cx="945" cy="1308" fill="#a371f7" id="svg_299" opacity="0.5" r="5" stroke="#a371f7" stroke-width="1.5"/>
-  <text class="t-leg" id="svg_300" x="957" y="1312">✦ Active project</text>
+  <circle cx="36" cy="1308" fill="#F38020" id="svg_lg0" r="5"/>
+  <text class="t-leg" id="svg_lt0" x="46" y="1312">AI &amp; Agentic</text>
+  <circle cx="160" cy="1308" fill="#58a6ff" id="svg_lg1" r="5"/>
+  <text class="t-leg" id="svg_lt1" x="170" y="1312">Core Backend</text>
+  <circle cx="290" cy="1308" fill="#3fb950" id="svg_lg2" r="5"/>
+  <text class="t-leg" id="svg_lt2" x="300" y="1312">Infra &amp; Ops</text>
+  <circle cx="408" cy="1308" fill="#e3b341" id="svg_lg3" r="5"/>
+  <text class="t-leg" id="svg_lt3" x="418" y="1312">Observability</text>
+  <circle cx="535" cy="1308" fill="#13BEF9" id="svg_lg4" r="5"/>
+  <text class="t-leg" id="svg_lt4" x="545" y="1312">Deploy / DevOps</text>
+  <circle cx="690" cy="1308" fill="#D67449" id="svg_lg5" r="5"/>
+  <text class="t-leg" id="svg_lt5" x="700" y="1312">Marca &amp; Negocio</text>
+  <circle cx="838" cy="1308" fill="#db61a2" id="svg_lg6" r="5"/>
+  <text class="t-leg" id="svg_lt6" x="848" y="1312">Verifiable</text>
+  <circle cx="945" cy="1308" fill="#a371f7" id="svg_lg7" r="5"/>
+  <text class="t-leg" id="svg_lt7" x="955" y="1312">Projects</text>
+  <circle cx="1040" cy="1308" fill="#a371f7" id="svg_lg8" opacity="0.5" r="5" stroke="#a371f7" stroke-width="1.5"/>
+  <text class="t-leg" id="svg_lt8" x="1052" y="1312">✦ Active project</text>
   <text class="t-leg" id="svg_301" text-anchor="end" x="1372" y="1312">Yonatan Valencia · Skills Map · 2026</text>
  </g>
 </svg>

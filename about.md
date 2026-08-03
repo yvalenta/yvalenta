@@ -4,15 +4,19 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+I'm Yonatan Valencia, a Sr. Software & AI Integration Engineer based in Medellín,
+Colombia. Over a decade in the Ruby on Rails ecosystem and backend engineering,
+currently working where traditional software engineering meets AI.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+What I spend my time on:
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+- **Agentic AI workflows** — LangChain, n8n, Anthropic Claude, Gemini and Amazon
+  Bedrock, wired into real applications rather than demos.
+- **Self-hosted infrastructure** — a single-node home lab exposed through one
+  Cloudflare Tunnel with no open ports, running zero-downtime Kamal 2 deploys.
+- **Verifiable compute** — [NomiCheck](https://nomicheck.ynt.codes), a Colombian
+  payroll engine whose every output is signed with Ed25519 and can be checked by
+  a third party without trusting whoever produced it.
 
-
-[jekyll-organization]: https://github.com/jekyll
+The full picture, including the architecture diagrams, is on my
+[GitHub profile](https://github.com/yvalenta).

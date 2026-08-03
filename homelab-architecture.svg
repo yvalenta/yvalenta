@@ -1,17 +1,20 @@
-<svg width="900" height="520" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img">
+<svg width="1040" height="700" viewBox="0 0 1040 700" xmlns="http://www.w3.org/2000/svg" role="img">
   <title>Home Lab Architecture — Yonatan Valencia 2026</title>
-  <desc>Self-hosted infrastructure with Cloudflare Tunnel, Docker, Kamal, Portainer and Netdata, alongside statically hosted sites on GitHub Pages</desc>
+  <desc>Single-node home lab behind one Cloudflare Tunnel with no open ports: Docker Compose running the Advance Fitness Rails app (Kamal 2) and the NomiCheck API with its payroll database on an isolated network, plus static apps and monitoring. Alongside it, three server-less paths — a Cloudflare Worker serving the agent card, the ARD catalog and the envelope verifier, GitHub Pages serving the Resplandor POS, and Netlify serving the Advance Fitness landing.</desc>
 
   <defs>
     <style>
       .bg        { fill: #0d1117; }
-      .card      { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
+      .card      { fill: #161b22; stroke: #30363d; stroke-width: 1; }
       .card-cf   { fill: #1a1f2e; stroke: #F38020; stroke-width: 1.5; }
       .card-dock { fill: #0f1929; stroke: #2496ED; stroke-width: 1.5; }
       .card-app  { fill: #161b22; stroke: #30363d; stroke-width: 1; }
       .card-net  { fill: #0f1a14; stroke: #00AB44; stroke-width: 1; }
       .card-gh   { fill: #14101f; stroke: #a371f7; stroke-width: 1.5; }
+      .card-nl   { fill: #08201e; stroke: #00C7B7; stroke-width: 1.5; }
       .card-kamal{ fill: #170b0b; stroke: #CC0000; stroke-width: 1.3; }
+      .card-nomi { fill: #1c0f18; stroke: #db61a2; stroke-width: 1.4; }
+      .card-iso  { fill: #150c12; stroke: #db61a2; stroke-width: 1; stroke-dasharray: 4 3; }
 
       .label-main { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; fill: #e6edf3; }
       .label-sub  { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 400; fill: #8b949e; }
@@ -20,186 +23,240 @@
       .label-app  { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; fill: #c9d1d9; }
       .label-net  { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; fill: #00AB44; }
       .label-gh   { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; fill: #a371f7; }
+      .label-nl   { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; fill: #00C7B7; }
       .label-kamal{ font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; fill: #ff6b6b; }
+      .label-nomi { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; fill: #f07fb8; }
       .label-url  { font-family: 'JetBrains Mono', monospace; font-size: 9px;  font-weight: 400; fill: #58a6ff; }
       .label-port { font-family: 'JetBrains Mono', monospace; font-size: 9px;  font-weight: 400; fill: #8b949e; }
 
       .arrow-cf   { stroke: #F38020; stroke-width: 1.5; fill: none; stroke-dasharray: 5 3; }
       .arrow-dock { stroke: #2496ED; stroke-width: 1.5; fill: none; }
-      .arrow-app  { stroke: #30363d; stroke-width: 1;   fill: none; }
+      .arrow-app  { stroke: #3f4750; stroke-width: 1;   fill: none; }
       .arrow-net  { stroke: #00AB44; stroke-width: 1;   fill: none; stroke-dasharray: 3 3; }
       .arrow-gh   { stroke: #a371f7; stroke-width: 1.5; fill: none; stroke-dasharray: 5 3; }
+      .arrow-nomi { stroke: #db61a2; stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+      .arrow-bus  { stroke: #00AB44; stroke-width: 1.2; fill: none; stroke-dasharray: 4 4; }
 
       .dot-cf   { fill: #F38020; }
       .dot-dock { fill: #2496ED; }
       .dot-net  { fill: #00AB44; }
       .dot-gh   { fill: #a371f7; }
+      .dot-nomi { fill: #db61a2; }
 
-      .section-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 400; fill: #484f58; text-transform: uppercase; letter-spacing: 0.1em; }
+      .section-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 400; fill: #484f58; letter-spacing: 0.1em; }
 
-      .pulse-cf   { animation: pulse-cf 2s ease-in-out infinite; transform-origin: 70px 140px; }
-      .pulse-dock { animation: pulse-dock 2.4s ease-in-out infinite 0.4s; transform-origin: 70px 250px; }
-      .pulse-net  { animation: pulse-net 2.8s ease-in-out infinite 0.8s; transform-origin: 620px 330px; }
-      .pulse-gh   { animation: pulse-gh 2.2s ease-in-out infinite 0.2s; transform-origin: 780px 46px; }
+      .pulse-cf   { animation: pulse-cf 2s ease-in-out infinite; transform-origin: 376px 49px; }
+      .pulse-dock { animation: pulse-dock 2.4s ease-in-out infinite 0.4s; transform-origin: 636px 199px; }
+      .pulse-net  { animation: pulse-net 2.8s ease-in-out infinite 0.8s; transform-origin: 322px 478px; }
+      .pulse-gh   { animation: pulse-gh 2.2s ease-in-out infinite 0.2s; transform-origin: 1004px 232px; }
+      .pulse-nomi { animation: pulse-nomi 2.1s ease-in-out infinite 0.6s; transform-origin: 628px 345px; }
 
       @keyframes pulse-cf   { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
       @keyframes pulse-dock { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
       @keyframes pulse-net  { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
       @keyframes pulse-gh   { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+      @keyframes pulse-nomi { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
 
       .flow-cf   { stroke-dasharray: 5 3; animation: flow 1.6s linear infinite; }
       .flow-dock { animation: flow 1.2s linear infinite; }
       .flow-app  { animation: flow 1.8s linear infinite 0.3s; }
       .flow-gh   { stroke-dasharray: 5 3; animation: flow 1.6s linear infinite; }
+      .flow-bus  { animation: flow 2.2s linear infinite; }
 
       @keyframes flow { to { stroke-dashoffset: -16; } }
 
-      .fade-1 { animation: fadein 0.6s ease both; }
-      .fade-2 { animation: fadein 0.6s ease 0.15s both; }
-      .fade-3 { animation: fadein 0.6s ease 0.3s  both; }
-      .fade-4 { animation: fadein 0.6s ease 0.45s both; }
-      .fade-5 { animation: fadein 0.6s ease 0.6s  both; }
-      .fade-6 { animation: fadein 0.6s ease 0.75s both; }
-      .fade-7 { animation: fadein 0.6s ease 0.9s  both; }
-      .fade-8 { animation: fadein 0.6s ease 1.05s both; }
-
-      @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+      /* NO entrance animation here, deliberately. Anything whose first keyframe
+         is opacity 0 disappears wherever the SVG is rasterised at t=0 — which is
+         what happens when it is embedded as an img element, the way GitHub
+         renders a README image. Both diagrams used to do exactly that: every
+         labelled group vanished and only the connector lines survived. The
+         looping motion above (flow, pulse, glow) is safe because its 0% state is
+         the fully visible one. The fade-1..fade-8 classes stay on the groups as hooks. */
     </style>
 
     <marker id="arr-cf"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#F38020"/></marker>
     <marker id="arr-dock" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2496ED"/></marker>
-    <marker id="arr-app"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#30363d"/></marker>
+    <marker id="arr-app"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3f4750"/></marker>
     <marker id="arr-net"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#00AB44"/></marker>
     <marker id="arr-gh"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#a371f7"/></marker>
+    <marker id="arr-nomi" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#db61a2"/></marker>
   </defs>
 
-  <rect width="900" height="520" class="bg"/>
+  <rect width="1040" height="700" class="bg"/>
 
   <!-- ── INTERNET ─────────────────────────────── -->
   <g class="fade-1">
-    <rect x="20" y="20" width="120" height="52" rx="8" class="card"/>
-    <text x="80" y="42" text-anchor="middle" class="label-main">Internet</text>
-    <text x="80" y="58" text-anchor="middle" class="label-sub">HTTPS</text>
+    <rect x="20" y="24" width="110" height="50" rx="8" class="card"/>
+    <text x="75" y="46" text-anchor="middle" class="label-main">Internet</text>
+    <text x="75" y="62" text-anchor="middle" class="label-sub">HTTPS</text>
   </g>
 
-  <!-- arrow internet → cloudflare -->
-  <line x1="140" y1="46" x2="194" y2="46" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
-  <text x="167" y="40" text-anchor="middle" class="label-sub">TLS</text>
+  <line x1="130" y1="49" x2="166" y2="49" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
 
-  <!-- arrow internet → github pages (top branch) -->
-  <path d="M 80 20 L 80 8 L 780 8 L 780 20" fill="none" class="arrow-gh flow-gh" marker-end="url(#arr-gh)"/>
-
-  <!-- ── CLOUDFLARE ─────────────────────────────── -->
+  <!-- ── CLOUDFLARE — the single front door ───── -->
   <g class="fade-2">
-    <rect x="196" y="20" width="170" height="52" rx="8" class="card-cf"/>
-    <text x="281" y="38" text-anchor="middle" class="label-cf">☁ Cloudflare</text>
-    <text x="281" y="54" text-anchor="middle" class="label-sub">DNS · TLS · DDoS protect</text>
-    <circle cx="358" cy="46" r="4" class="dot-cf pulse-cf"/>
+    <rect x="168" y="24" width="216" height="50" rx="8" class="card-cf"/>
+    <text x="276" y="43" text-anchor="middle" class="label-cf">☁ Cloudflare · ynt.codes</text>
+    <text x="276" y="60" text-anchor="middle" class="label-sub">DNS · TLS · WAF · Zero Trust</text>
+    <circle cx="376" cy="49" r="4" class="dot-cf pulse-cf"/>
   </g>
 
-  <!-- arrow cloudflare → tunnel -->
-  <line x1="366" y1="46" x2="420" y2="46" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
-  <text x="393" y="40" text-anchor="middle" class="label-sub">tunnel</text>
+  <!-- Cloudflare → tunnel -->
+  <line x1="276" y1="74" x2="276" y2="104" class="arrow-cf flow-cf" marker-end="url(#arr-cf)"/>
+  <text x="286" y="94" class="label-sub">tunnel</text>
 
-  <!-- ── TUNNEL ──────────────────────────────── -->
   <g class="fade-3">
-    <rect x="422" y="20" width="170" height="52" rx="8" class="card-cf"/>
-    <text x="507" y="38" text-anchor="middle" class="label-cf">cloudflared</text>
-    <text x="507" y="54" text-anchor="middle" class="label-sub">homelab-tunnel · no open ports</text>
+    <rect x="168" y="106" width="216" height="48" rx="8" class="card-cf"/>
+    <text x="276" y="126" text-anchor="middle" class="label-cf">cloudflared</text>
+    <text x="276" y="142" text-anchor="middle" class="label-sub">homelab-tunnel · no open ports</text>
   </g>
 
-  <!-- arrow tunnel → docker -->
-  <line x1="507" y1="72" x2="507" y2="112" class="arrow-dock flow-dock" marker-end="url(#arr-dock)"/>
+  <line x1="276" y1="154" x2="276" y2="173" class="arrow-dock flow-dock" marker-end="url(#arr-dock)"/>
 
-  <!-- ── GITHUB PAGES (static branch, no homelab) ── -->
-  <g class="fade-2">
-    <rect x="700" y="20" width="180" height="52" rx="8" class="card-gh"/>
-    <text x="790" y="38" text-anchor="middle" class="label-gh">▲ GitHub Pages</text>
-    <text x="790" y="54" text-anchor="middle" class="label-sub">static hosting · no server</text>
-    <circle cx="872" cy="46" r="4" class="dot-gh pulse-gh"/>
-  </g>
-  <line x1="790" y1="72" x2="790" y2="112" class="arrow-gh flow-gh" marker-end="url(#arr-gh)"/>
+  <!-- ── EDGE SPINE — the server-less branch ──── -->
+  <path d="M 384 49 L 684 49 L 684 354" class="arrow-gh flow-gh" fill="none"/>
+  <line x1="684" y1="76"  x2="698" y2="76"  class="arrow-gh" marker-end="url(#arr-gh)"/>
+  <line x1="684" y1="170" x2="698" y2="170" class="arrow-gh" marker-end="url(#arr-gh)"/>
+  <line x1="684" y1="257" x2="698" y2="257" class="arrow-gh" marker-end="url(#arr-gh)"/>
+  <line x1="684" y1="354" x2="698" y2="354" class="arrow-gh" marker-end="url(#arr-gh)"/>
+
+  <!-- Worker: agent card + ARD catalog + verifier -->
   <g class="fade-3">
-    <rect x="700" y="114" width="180" height="66" rx="8" class="card-app"/>
-    <text x="790" y="134" text-anchor="middle" class="label-app">Resplandor · Landing</text>
-    <text x="790" y="150" text-anchor="middle" class="label-url">yvalenta.github.io/resplandor</text>
-    <text x="790" y="164" text-anchor="middle" class="label-port">HTML · Tailwind · Alpine.js</text>
+    <rect x="700" y="24" width="320" height="100" rx="8" class="card-cf"/>
+    <text x="716" y="44" class="label-cf">⚡ Worker · ynt-agent-card</text>
+    <text x="716" y="60" class="label-url">ynt.codes</text>
+    <text x="716" y="76" class="label-port">/.well-known/agent-card.json · A2A</text>
+    <text x="716" y="90" class="label-port">/.well-known/ai-catalog.json · ARD</text>
+    <text x="716" y="104" class="label-port">/verificar · envelope check, in-browser</text>
   </g>
-  <text x="790" y="196" text-anchor="middle" class="label-sub" opacity="0.6">independiente del homelab</text>
+
+  <!-- cv at the edge -->
+  <g class="fade-4">
+    <rect x="700" y="142" width="320" height="56" rx="8" class="card-app"/>
+    <text x="716" y="164" class="label-app">cv_app</text>
+    <text x="716" y="182" class="label-url">cv.ynt.codes · served at the edge</text>
+  </g>
+
+  <!-- GitHub Pages -->
+  <g class="fade-5">
+    <rect x="700" y="212" width="320" height="90" rx="8" class="card-gh"/>
+    <text x="716" y="234" class="label-gh">▲ GitHub Pages · DNS only</text>
+    <text x="716" y="252" class="label-app">Resplandor — POS</text>
+    <text x="716" y="268" class="label-url">resplandor.ynt.codes</text>
+    <text x="716" y="284" class="label-port">tables · orders · split billing · day close</text>
+    <circle cx="1004" cy="232" r="4" class="dot-gh pulse-gh"/>
+  </g>
+
+  <!-- Netlify -->
+  <g class="fade-6">
+    <rect x="700" y="316" width="320" height="76" rx="8" class="card-nl"/>
+    <text x="716" y="338" class="label-nl">◆ Netlify · proxied by Cloudflare</text>
+    <text x="716" y="356" class="label-app">Advance Fitness — landing</text>
+    <text x="716" y="372" class="label-url">advance-fitness.ynt.codes</text>
+  </g>
+
+  <text x="700" y="414" class="label-sub" opacity="0.6">no home lab involved — nothing to keep running</text>
 
   <!-- ── DOCKER ENGINE ───────────────────────── -->
   <g class="fade-4">
-    <rect x="140" y="114" width="540" height="316" rx="12" class="card-dock"/>
-    <text x="410" y="136" text-anchor="middle" class="label-dock">🐳 Docker Engine</text>
-    <text x="410" y="150" text-anchor="middle" class="label-sub">Ubuntu Server · home lab · 192.168.40.253</text>
+    <rect x="20" y="176" width="648" height="372" rx="12" class="card-dock"/>
+    <text x="344" y="198" text-anchor="middle" class="label-dock">🐳 Docker Engine · docker-lab</text>
+    <text x="344" y="214" text-anchor="middle" class="label-sub">Ubuntu 25.04 · Docker 29.6.1 · i5-4570T · 7.2 GB · 192.168.40.253</text>
+    <circle cx="636" cy="199" r="4" class="dot-dock pulse-dock"/>
   </g>
 
-  <!-- ── Portainer ──────────────────────────── -->
+  <!-- proxy network bus -->
+  <text x="42" y="230" class="section-label">docker-lab_proxy-network</text>
+  <line x1="42" y1="238" x2="646" y2="238" class="arrow-bus flow-bus"/>
+
+  <!-- bus → row 1 -->
+  <line x1="140" y1="238" x2="140" y2="248" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+  <line x1="346" y1="238" x2="346" y2="248" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+  <line x1="550" y1="238" x2="550" y2="248" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+
+  <!-- row 1: static apps + monitor UI -->
   <g class="fade-5">
-    <rect x="160" y="162" width="160" height="52" rx="8" class="card-app"/>
-    <text x="240" y="182" text-anchor="middle" class="label-app">Portainer</text>
-    <text x="240" y="198" text-anchor="middle" class="label-url">portainer.ynt.codes</text>
+    <rect x="42" y="250" width="196" height="56" rx="8" class="card-app"/>
+    <text x="140" y="272" text-anchor="middle" class="label-app">homelab-web · nginx</text>
+    <text x="140" y="290" text-anchor="middle" class="label-url">homelab.ynt.codes</text>
   </g>
-
-  <!-- ── cv_app ──────────────────────────────── -->
   <g class="fade-5">
-    <rect x="336" y="162" width="150" height="52" rx="8" class="card-app"/>
-    <text x="411" y="182" text-anchor="middle" class="label-app">cv_app</text>
-    <text x="411" y="198" text-anchor="middle" class="label-url">cv.ynt.codes</text>
+    <rect x="248" y="250" width="196" height="56" rx="8" class="card-app"/>
+    <text x="346" y="272" text-anchor="middle" class="label-app">loan-calculator · nginx</text>
+    <text x="346" y="290" text-anchor="middle" class="label-url">loan_calculator.ynt.codes</text>
   </g>
-
-  <!-- ── loan_calculator ────────────────────── -->
   <g class="fade-5">
-    <rect x="502" y="162" width="160" height="52" rx="8" class="card-app"/>
-    <text x="582" y="182" text-anchor="middle" class="label-app">loan_calculator</text>
-    <text x="582" y="198" text-anchor="middle" class="label-url">loan_calculator.ynt.codes</text>
+    <rect x="454" y="250" width="192" height="56" rx="8" class="card-app"/>
+    <text x="550" y="272" text-anchor="middle" class="label-app">uptime-kuma</text>
+    <text x="550" y="290" text-anchor="middle" class="label-port">127.0.0.1:3001 · loopback only</text>
   </g>
 
-  <!-- tunnel branches down to each app row -->
-  <line x1="240" y1="214" x2="240" y2="240" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
-  <line x1="411" y1="214" x2="411" y2="240" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
-  <line x1="582" y1="214" x2="582" y2="240" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+  <!-- bus drop → row 2 -->
+  <line x1="243" y1="238" x2="243" y2="314" class="arrow-app"/>
+  <line x1="449" y1="238" x2="449" y2="314" class="arrow-app"/>
+  <line x1="190" y1="314" x2="499" y2="314" class="arrow-app"/>
+  <line x1="190" y1="314" x2="190" y2="322" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
+  <line x1="499" y1="314" x2="499" y2="322" class="arrow-app flow-app" marker-end="url(#arr-app)"/>
 
-  <!-- ── ADVANCE FITNESS APP (Kamal-deployed, flagship) ── -->
+  <!-- row 2a: Advance Fitness, Kamal-deployed, multi-tenant -->
   <g class="fade-6">
-    <rect x="160" y="242" width="330" height="100" rx="10" class="card-kamal"/>
-    <text x="325" y="264" text-anchor="middle" class="label-kamal">🚀 advance-fitness-app · Kamal 2</text>
-    <text x="325" y="280" text-anchor="middle" class="label-url">advance-fitness-app.ynt.codes</text>
-    <text x="325" y="296" text-anchor="middle" class="label-sub">Rails 8.1 · Ruby 4.0.5 · Thruster + Puma 8</text>
-    <text x="325" y="311" text-anchor="middle" class="label-sub">network-alias: rails-app · docker-lab_proxy-network</text>
-    <text x="325" y="326" text-anchor="middle" class="label-sub">→ Supabase (PostgreSQL 17, AWS pooler, externo)</text>
+    <rect x="42" y="324" width="296" height="118" rx="10" class="card-kamal"/>
+    <text x="56" y="345" class="label-kamal">🚀 advance-fitness-app · Kamal 2</text>
+    <text x="56" y="361" class="label-url">advance-fitness-app.ynt.codes</text>
+    <text x="56" y="375" class="label-port">+ comercial · join · vital-fitness — 4 tenants</text>
+    <text x="56" y="390" class="label-sub">Rails 8.1 · Ruby 4.0.5 · Thruster + Puma</text>
+    <text x="56" y="405" class="label-sub">network-alias: rails-app · drain 130s</text>
+    <text x="56" y="420" class="label-sub">→ Supabase (PostgreSQL 17, external)</text>
   </g>
 
-  <!-- ── Docker volume storage ── -->
+  <!-- row 2b: NomiCheck API -->
   <g class="fade-6">
-    <rect x="502" y="242" width="160" height="100" rx="8" class="card-app"/>
-    <text x="582" y="264" text-anchor="middle" class="label-app">Docker Volume</text>
-    <text x="582" y="280" text-anchor="middle" class="label-sub">advance_fitness_app_storage</text>
-    <text x="582" y="296" text-anchor="middle" class="label-sub">:/rails/storage</text>
-    <text x="582" y="312" text-anchor="middle" class="label-sub">caché GIFs/imágenes</text>
-    <text x="582" y="326" text-anchor="middle" class="label-sub">catálogo de ejercicios</text>
+    <rect x="352" y="324" width="294" height="118" rx="10" class="card-nomi"/>
+    <text x="366" y="345" class="label-nomi">⚖ nomicheck-api · x402 paywall</text>
+    <text x="366" y="361" class="label-url">nomicheck.ynt.codes</text>
+    <text x="366" y="375" class="label-port">Express · Prisma · Node 22 · pnpm mono</text>
+    <text x="366" y="390" class="label-sub">127.0.0.1:3002 — API + web, 1 container</text>
+    <text x="366" y="405" class="label-sub">402 before serving · USDC on Base</text>
+    <text x="366" y="420" class="label-sub">Ed25519-signed output · catalog sha256</text>
+    <circle cx="628" cy="345" r="4" class="dot-nomi pulse-nomi"/>
   </g>
 
-  <!-- ── Netdata + Uptime Kuma ─────────────────── -->
+  <!-- api → isolated db -->
+  <line x1="499" y1="442" x2="499" y2="454" class="arrow-nomi" marker-end="url(#arr-nomi)"/>
+
+  <!-- row 3a: monitoring -->
   <g class="fade-7">
-    <rect x="160" y="356" width="502" height="62" rx="8" class="card-net"/>
-    <text x="180" y="378" class="label-net">📊 Netdata</text>
-    <text x="180" y="394" class="label-sub">CPU · memoria · SSH · tráfico nginx · Docker stats</text>
-    <line x1="420" y1="366" x2="420" y2="410" stroke="#1a2e1a" stroke-width="1"/>
-    <text x="440" y="378" class="label-net">🟢 Uptime Kuma</text>
-    <text x="440" y="394" class="label-sub">status page pública · :3001 · alertas</text>
-    <circle cx="655" cy="378" r="4" class="dot-net pulse-net"/>
+    <rect x="42" y="458" width="296" height="64" rx="8" class="card-net"/>
+    <text x="56" y="479" class="label-net">📊 Netdata</text>
+    <text x="56" y="495" class="label-sub">CPU · RAM · SSH · nginx · Docker stats</text>
+    <text x="56" y="510" class="label-port">host telemetry — no public hostname</text>
+    <circle cx="322" cy="478" r="4" class="dot-net pulse-net"/>
+  </g>
+
+  <!-- row 3b: isolated payroll database -->
+  <g class="fade-7">
+    <rect x="352" y="456" width="294" height="66" rx="8" class="card-iso"/>
+    <text x="366" y="477" class="label-nomi">nomicheck-db · postgres:17</text>
+    <text x="366" y="492" class="label-port">nomicheck-net (isolated)</text>
+    <text x="366" y="507" class="label-sub">payroll PII · unreachable from cloudflared</text>
+  </g>
+
+  <!-- ── VERIFIABLE CHAIN STRIP ──────────────── -->
+  <g class="fade-8">
+    <rect x="20" y="566" width="1000" height="58" rx="8" fill="#1c0f18" stroke="#5c2a45" stroke-width="1"/>
+    <text x="520" y="590" text-anchor="middle" class="label-nomi">🔏  charge → compute → sign → verify</text>
+    <text x="520" y="608" text-anchor="middle" class="label-sub">402 Payment Required (USDC on Base) → deterministic engine + dated legal catalog → Ed25519 envelope → ynt.codes/verificar, in your browser</text>
   </g>
 
   <!-- ── AI WORKFLOW STRIP ───────────────────── -->
   <g class="fade-8">
-    <rect x="140" y="440" width="740" height="38" rx="8" fill="#0f1a2e" stroke="#1f3a5f" stroke-width="1"/>
-    <text x="510" y="455" text-anchor="middle" class="label-sub">🤖  AI-assisted build &amp; deploy</text>
-    <text x="510" y="469" text-anchor="middle" class="label-sub">Claude · Gemini · arquitectura · debugging · configs Kamal/Docker · docs</text>
+    <rect x="20" y="636" width="1000" height="44" rx="8" fill="#0f1a2e" stroke="#1f3a5f" stroke-width="1"/>
+    <text x="520" y="655" text-anchor="middle" class="label-sub">🤖  AI-assisted build &amp; deploy</text>
+    <text x="520" y="670" text-anchor="middle" class="label-sub">Claude · Gemini — architecture · debugging · Kamal &amp; Docker configs · docs</text>
   </g>
 
   <!-- Section labels -->
-  <text x="20"  y="14"  class="section-label">public layer</text>
-  <text x="140" y="110" class="section-label">private server — no open ports</text>
-  <text x="700" y="110" class="section-label">no server involved</text>
+  <text x="20"  y="16"  class="section-label">public layer</text>
+  <text x="20"  y="170" class="section-label">private server — no open ports</text>
+  <text x="700" y="16"  class="section-label">no server involved</text>
 </svg>

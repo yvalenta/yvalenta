@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yonatan Valencia — Senior Software &amp; AI Integration Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0F1117;
+      --surface:   #1A1D27;
+      --surface2:  #21253A;
+      --border:    rgba(255,255,255,0.08);
+      --border2:   rgba(255,255,255,0.14);
+      --text:      #E8E6F0;
+      --muted:     #8B87A8;
+      --accent:    #6C63FF;
+      --accent-bg: rgba(108,99,255,0.12);
+      --accent-bd: rgba(108,99,255,0.35);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    /* ── Header ── */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .headline {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Contact links ── */
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      margin-bottom: 2rem;
+    }
+
+    .contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .contact a:hover { color: var(--accent); }
+
+    .contact svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Tech stack chips ── */
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 2.75rem;
+    }
+
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent-bd);
+      letter-spacing: 0.01em;
+    }
+
+    .chip.secondary {
+      background: var(--surface);
+      color: var(--muted);
+      border-color: var(--border2);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 2.25rem 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-label .sub {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      opacity: 0.65;
+    }
+
+    /* ── Summary ── */
+    .summary {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── Skills grid ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 540px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+
+    .skill-group.wide { grid-column: 1 / -1; }
+
+    .skill-level {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill-tag {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: #C5C3D8;
+    }
+
+    /* ── Projects ── */
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.05rem 1.15rem 1.15rem;
+    }
+
+    .project.lead { border-color: var(--accent-bd); }
+
+    .project-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2px 14px;
+      margin-bottom: 2px;
+    }
+
+    .project-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .project-link {
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+      word-break: break-word;
+    }
+
+    .project-link:hover { border-bottom-color: var(--accent-bd); }
+
+    .project-kicker {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--muted);
+      opacity: 0.8;
+      margin-bottom: 0.7rem;
+    }
+
+    .project-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.7rem;
+    }
+
+    .mini-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .mini {
+      position: relative;
+      padding-left: 13px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .mini::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-bd);
+    }
+
+    .mini strong {
+      color: #C5C3D8;
+      font-weight: 500;
+    }
+
+    .mini a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .mini a:hover { color: var(--accent); border-bottom-color: var(--accent-bd); }
+
+    .proof {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--muted);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .proof a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .proof a:hover { text-decoration: underline; }
+
+    .project-desc code, .mini code {
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 0.88em;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: #C5C3D8;
+      white-space: nowrap;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border2);
+    }
+
+    .job {
+      position: relative;
+      margin-bottom: 2.25rem;
+    }
+
+    .job::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 7px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1.5px solid var(--border2);
+    }
+
+    .job.current::before {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .job-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 14px;
+      margin-bottom: 4px;
+    }
+
+    .job-company {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .job-period {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .job-client {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      opacity: 0.8;
+    }
+
+    .job-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.65rem;
+    }
+
+    .job-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tool {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ── Education ── */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+
+    .edu-degree {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .edu-school {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── Languages ── */
+    .langs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lang-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1.1rem;
+      min-width: 130px;
+    }
+
+    .lang-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .lang-level {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Certifications ── */
+    .certs {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .cert {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .cert-icon {
+      width: 15px;
+      height: 15px;
+      color: var(--accent);
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+<main class="page">
+
+  <!-- Header -->
+  <p class="eyebrow">Software Engineer &middot; Medellín, Colombia</p>
+  <h1>Yonatan Valencia</h1>
+  <p class="headline">Senior Software &amp; AI Integration Engineer</p>
+
+  <!-- Contact -->
+  <div class="contact">
+    <a href="mailto:yo.valenciat@gmail.com">
+      <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      yo.valenciat@gmail.com
+    </a>
+    <a href="tel:+573028543356">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.5z"/></svg>
+      +57 302 854 3356
+    </a>
+    <a href="https://linkedin.com/in/yvalenta" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/yvalenta
+    </a>
+    <a href="https://github.com/yvalenta" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      github.com/yvalenta
+    </a>
+  </div>
+
+  <!-- Stack chips -->
+  <div class="stack">
+    <span class="chip">Ruby on Rails</span>
+    <span class="chip">Agentic AI &amp; LangChain</span>
+    <span class="chip">Docker &amp; Cloudflare</span>
+    <span class="chip secondary">Anthropic Claude</span>
+    <span class="chip secondary">Amazon Bedrock</span>
+    <span class="chip secondary">Node.js &amp; TypeScript</span>
+    <span class="chip secondary">React &amp; Vite</span>
+    <span class="chip secondary">PostgreSQL</span>
+    <span class="chip secondary">Kamal 2</span>
+    <span class="chip secondary">Ed25519 &amp; x402</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Summary -->
+  <p class="section-label">Summary</p>
+  <p class="summary">Software engineer with over 10 years of experience, specializing in the convergence of distributed systems, Artificial Intelligence, and secure cloud infrastructure. Proven expertise in architecting enterprise-grade agentic workflows (LangChain, Claude) and designing Zero Trust infrastructure topologies utilizing Docker, Cloudflare Tunnels, and real-time telemetry. Alongside client work I design, ship and operate my own production systems — most recently NomiCheck, a Colombian payroll engine whose every result is cryptographically signed and independently verifiable, running on self-hosted infrastructure with no inbound ports open.</p>
+
+  <div class="divider"></div>
+
+  <!-- Skills -->
+  <p class="section-label">Skills</p>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <p class="skill-level">Software Engineering</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Ruby on Rails</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Microservices</span>
+        <span class="skill-tag">RSpec / Vitest</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-level">Cloud, Infra &amp; Data</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker Engine</span>
+        <span class="skill-tag">Cloudflare Tunnels</span>
+        <span class="skill-tag">Cloudflare Workers</span>
+        <span class="skill-tag">Kamal 2</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MongoDB Atlas</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-level">AI &amp; Automation</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Agentic Workflows</span>
+        <span class="skill-tag">LangChain</span>
+        <span class="skill-tag">Anthropic Claude</span>
+        <span class="skill-tag">Amazon Bedrock</span>
+        <span class="skill-tag">Google Gemini</span>
+        <span class="skill-tag">n8n Automation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-level">Fundamentals</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Vue.js</span>
+        <span class="skill-tag">GraphQL</span>
+        <span class="skill-tag">AWS / Heroku</span>
+        <span class="skill-tag">Grafana</span>
+        <span class="skill-tag">Sentry</span>
+      </div>
+    </div>
+    <div class="skill-group wide">
+      <p class="skill-level">Verifiable &amp; Machine-Payable Systems</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Ed25519 signatures</span>
+        <span class="skill-tag">Canonical JSON</span>
+        <span class="skill-tag">x402 payment wall</span>
+        <span class="skill-tag">USDC on Base (EIP-3009)</span>
+        <span class="skill-tag">ERC-8004 agent identity</span>
+        <span class="skill-tag">ERC-8128 request signing</span>
+        <span class="skill-tag">A2A agent cards</span>
+        <span class="skill-tag">IPFS</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Independent work -->
+  <p class="section-label">Independent Work <span class="sub">— ynt-labs, my own systems in production</span></p>
+  <div class="projects">
+
+    <article class="project lead">
+      <div class="project-head">
+        <p class="project-name">NomiCheck</p>
+        <a class="project-link" href="https://nomicheck.ynt.codes" target="_blank">nomicheck.ynt.codes &#8599;</a>
+      </div>
+      <p class="project-kicker">Colombian payroll law as a dated, verifiable catalog — plus the engine that applies it</p>
+      <p class="project-desc">A deterministic payroll and withholding-tax engine built on a dated legal catalog: every statutory parameter — minimum wage, transport allowance, UVT, night and Sunday premiums, the ordinary-hour divisor, social security rates, garnishment and withholding caps — resolves on any date since 2020, each carrying the decree or resolution that set it and the window it was in force. Five calculators sit on top of it (payroll, withholding tax, payslip verification, final settlement, USDC payout). Stateless by design: request payloads are computed in memory and never written to a database, per Colombia's habeas data law. Built as a pnpm monorepo — Express + Prisma + TypeScript API, React 19 + Vite front end, a shared rules package — with CI typechecking and testing all three workspaces on every push.</p>
+      <ul class="mini-list">
+        <li class="mini"><strong>Signed results.</strong> Every response cites its legal basis, carries the SHA-256 of the catalog that produced it and is signed with Ed25519, so a third party can verify it offline without trusting the issuer. The signing format is an open, versioned spec with its own reference implementation and test vectors — including a section on what a signature does <em>not</em> assert.</li>
+        <li class="mini"><strong>Machine-payable API (x402).</strong> Priced endpoints answer HTTP 402 with an on-chain payment requirement and serve only once the transfer settles — USDC on Base via EIP-3009, cleared through the Coinbase CDP facilitator. Charge-before-serve is enforced at the wall, not in the handler.</li>
+        <li class="mini"><strong>Agent identity &amp; discovery.</strong> ERC-8004 identity #59771 on Base mainnet, an A2A agent card and an ARD catalog for federated discovery — all served by a single Cloudflare Worker, with the AI-usage policy pinned to IPFS and attested by digest. Requests to Execution Market are signed with ERC-8128.</li>
+        <li class="mini"><strong>Documentation that is audited, not trusted.</strong> Each published constant has exactly one place where it is asserted; auditors sweep the whole tree, compare it against the chain and against what the servers actually return, and fail when prose drifts from reality.</li>
+      </ul>
+      <p class="proof">Verify a signed result yourself — no signup, no install, nothing to pay:<br />
+        <a href="https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/ejemplo" target="_blank">ynt.codes/verificar</a></p>
+      <div class="job-tools">
+        <span class="tool">TypeScript</span><span class="tool">Node 22</span><span class="tool">Express</span><span class="tool">Prisma</span><span class="tool">PostgreSQL 17</span><span class="tool">React 19</span><span class="tool">Vite</span><span class="tool">pnpm monorepo</span><span class="tool">Ruby</span><span class="tool">Python</span><span class="tool">viem</span><span class="tool">Ed25519</span><span class="tool">USDC / Base</span><span class="tool">Docker</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <p class="project-name">Home Lab &amp; Zero Trust Infrastructure</p>
+        <a class="project-link" href="https://homelab.ynt.codes" target="_blank">homelab.ynt.codes &#8599;</a>
+      </div>
+      <p class="project-kicker">Single-node server in Medellín running every one of the systems above</p>
+      <p class="project-desc">One machine — Intel i5-4570T, 7.2 GB RAM, Ubuntu 25.04, Docker 29.6.1 — carrying the production workloads behind <code>ynt.codes</code>. Nine public hostnames are live on the domain; everything self-hosted among them reaches the internet through a single Cloudflare Tunnel — outbound-only, no inbound ports, TLS and WAF at the edge — while the rest is served from Cloudflare Workers and GitHub Pages. Rails services deploy with Kamal 2, static apps from nginx containers, and Uptime Kuma watches what is exposed. The payroll database sits on an isolated Docker network that neither the tunnel daemon nor any sibling container can reach. A hardening pass moved the monitor off <code>0.0.0.0</code> onto loopback and removed two orphaned tunnels still pointing at containers that no longer existed. The architecture is published as a live, clickable diagram at the address above.</p>
+      <div class="job-tools">
+        <span class="tool">Cloudflare Zero Trust</span><span class="tool">Cloudflare Workers</span><span class="tool">Docker</span><span class="tool">Kamal 2</span><span class="tool">nginx</span><span class="tool">PostgreSQL 17</span><span class="tool">Uptime Kuma</span><span class="tool">Ubuntu</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <p class="project-name">Advance Fitness</p>
+        <a class="project-link" href="https://advance-fitness-app.ynt.codes" target="_blank">advance-fitness-app.ynt.codes &#8599;</a>
+      </div>
+      <p class="project-kicker">Multi-tenant gym-management SaaS — one codebase, one subdomain per gym</p>
+      <p class="project-desc">Rails 8.1 monolith on Ruby 4.0: memberships and access control, biometric progress tracking, a nutrition calculator, and training plans generated by a multi-provider AI adapter (Gemini by default, Claude as an alternative) running as background jobs. Server-rendered with Hotwire and Tailwind — no JavaScript build. Solid Queue, Solid Cache and Solid Cable all run on Postgres, so there is no Redis to operate. Native Rails 8 authentication plus Google OAuth, authorization by role with Pundit, tenant scoping in the request cycle, and zero-downtime deploys with Kamal 2.</p>
+      <div class="job-tools">
+        <span class="tool">Rails 8.1</span><span class="tool">Ruby 4.0</span><span class="tool">Hotwire</span><span class="tool">Tailwind + DaisyUI</span><span class="tool">Solid Queue</span><span class="tool">PostgreSQL</span><span class="tool">Pundit</span><span class="tool">Google OAuth</span><span class="tool">Gemini / Claude</span><span class="tool">Kamal 2</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <p class="project-name">Resplandor POS &amp; Simulador de Abonos a Capital</p>
+        <a class="project-link" href="https://resplandor.ynt.codes" target="_blank">resplandor.ynt.codes &#8599;</a>
+      </div>
+      <p class="project-kicker">Two smaller products, both shipped and in use</p>
+      <ul class="mini-list">
+        <li class="mini"><strong>Resplandor POS</strong> — touch point-of-sale for a Medellín restaurant: table management, invoicing and daily close, with multi-device realtime sync and Google sign-in. Alpine.js and Tailwind over Supabase (Postgres, Realtime, Auth). The design document is written against what actually ships, not the original plan: backend and authentication were explicitly out of scope in v1.0 and had to be added once several devices were in play at once.</li>
+        <li class="mini"><strong>Simulador de Abonos a Capital</strong> — <a href="https://loan_calculator.ynt.codes" target="_blank">loan_calculator.ynt.codes</a> — a mortgage prepayment simulator that projects one-off and recurring extra principal payments against the base schedule, under either reduce-the-term or reduce-the-payment, with a full amortization table. React 19, Vite, Recharts, containerized behind nginx.</li>
+      </ul>
+      <div class="job-tools">
+        <span class="tool">Supabase</span><span class="tool">Alpine.js</span><span class="tool">Tailwind</span><span class="tool">Realtime</span><span class="tool">React 19</span><span class="tool">Vite</span><span class="tool">Recharts</span><span class="tool">nginx</span>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Experience -->
+  <p class="section-label">Experience</p>
+  <div class="timeline">
+
+    <div class="job current">
+      <p class="job-title">Sr. Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Globant</span>
+        <span class="job-period">Aug 2025 – Present</span>
+      </div>
+      <p class="job-client">Dojo — Node.js Training / AI Pod</p>
+      <p class="job-desc">Hands-on Node.js training via pair programming in a service migration from Elasticsearch to MongoDB Atlas with Normal, Search (Lucene), and Vector Indexes. Contributed to large-scale job processing with AWS Batch. Explored automation workflows with n8n integrating LLMs, Google Sheets, Neon (PostgreSQL), and Upstash (Redis).</p>
+      <div class="job-tools">
+        <span class="tool">MongoDB Atlas</span><span class="tool">n8n</span><span class="tool">AWS Batch</span><span class="tool">LangChain</span><span class="tool">Claude</span><span class="tool">React</span><span class="tool">TypeScript</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Sr. Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Globant</span>
+        <span class="job-period">Aug 2024 – Aug 2025</span>
+      </div>
+      <p class="job-client">Panorama Education — Surveys SEL</p>
+      <p class="job-desc">Agentic AI workflows within the Solara chat ecosystem using LangChain and Anthropic Claude via Amazon Bedrock — multi-step reasoning and autonomous tool execution over educational data. Refactored frontend components; built data export features and class roster selection workflows.</p>
+      <div class="job-tools">
+        <span class="tool">Amazon Bedrock</span><span class="tool">LangChain</span><span class="tool">Claude</span><span class="tool">Ruby on Rails</span><span class="tool">Vue.js</span><span class="tool">RSpec</span><span class="tool">PostgreSQL</span><span class="tool">Sidekiq</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Sr. Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Globant</span>
+        <span class="job-period">Sep 2023 – Mar 2024</span>
+      </div>
+      <p class="job-client">Atria Wealth Solutions — Groove Point &amp; SCF Integration</p>
+      <p class="job-desc">Enterprise SSO integrations with FinTech vendors (Investigo, Docupace, BRACS, Okta, Orion, Advice Pay) via SOAP. Developed Rake tasks for bulk contact uploads and provided ongoing support for legacy Rails applications.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">RSpec</span><span class="tool">PostgreSQL</span><span class="tool">Sidekiq</span><span class="tool">SOAP</span><span class="tool">Travis CI</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Sr. Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Globant</span>
+        <span class="job-period">Apr 2023 – Aug 2023</span>
+      </div>
+      <p class="job-client">GoNoodle Platform</p>
+      <p class="job-desc">Developed the "Hero Units" module — an interactive educational CMS with Active Admin — allowing teachers to create slide-based content for high-volume student traffic.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">RSpec</span><span class="tool">Semaphore CI</span><span class="tool">GCP</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Sr. Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Globant</span>
+        <span class="job-period">Jul 2021 – Apr 2023</span>
+      </div>
+      <p class="job-client">Atria Wealth Solutions — Commissions &amp; Money Movement</p>
+      <p class="job-desc">New functionalities across commissions and money movement workstreams. Twilio API integration for automated commission notifications. Legacy code support and RTB ticket resolution.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">Twilio</span><span class="tool">Sidekiq</span><span class="tool">Travis CI</span><span class="tool">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Sr. Software Engineer</p>
+      <div class="job-meta">
+        <span class="job-company">Skydropx</span>
+        <span class="job-period">May 2022 – Feb 2023 &middot; Remote</span>
+      </div>
+      <p class="job-desc">Monolith-to-microservices migration with large-scale distributed PostgreSQL schema design for transactional delivery loads. CI/CD via CircleCI; deploys to Heroku and AWS. Rigorous TDD with RSpec throughout.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">Microservices</span><span class="tool">PostgreSQL</span><span class="tool">Circle CI</span><span class="tool">AWS</span><span class="tool">Heroku</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Software Developer / Engineer II</p>
+      <div class="job-meta">
+        <span class="job-company">Runa</span>
+        <span class="job-period">Jun 2019 – Jun 2021 &middot; Remote</span>
+      </div>
+      <p class="job-desc">Grew RSpec test coverage from 8% to 40% on a data-intensive HR application. SLI/SLO definition and monitoring with New Relic, Datadog, and Grafana. AWS task automation reducing resolution times and ensuring continuous high availability.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">RSpec</span><span class="tool">AWS</span><span class="tool">New Relic</span><span class="tool">Datadog</span><span class="tool">Grafana</span><span class="tool">PagerDuty</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Sapiencia &middot; Agencia de Educación Superior</span>
+        <span class="job-period">Sep 2018 – Jun 2019</span>
+      </div>
+      <p class="job-desc">Maintained two internal Rails apps (Minotauro and SIIS), adding features and telemetry tools. Oracle Cloud infrastructure, Oracle DB (PL/SQL), deployment pipelines, and automated backup protocols.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">Oracle Cloud</span><span class="tool">PL/SQL</span><span class="tool">Linux</span><span class="tool">Nginx</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <p class="job-title">Senior Ruby Developer</p>
+      <div class="job-meta">
+        <span class="job-company">Visionamos</span>
+        <span class="job-period">Apr 2014 – Nov 2017</span>
+      </div>
+      <p class="job-desc">Banking network application for Red Coopcentral in Ruby on Rails. Deployment automation via Capistrano. Managed CentOS Linux servers (Apache, Nginx) across testing and certification environments.</p>
+      <div class="job-tools">
+        <span class="tool">Ruby on Rails</span><span class="tool">Capistrano</span><span class="tool">Nginx</span><span class="tool">Apache</span><span class="tool">CentOS</span><span class="tool">MS SQL Server</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Education -->
+  <p class="section-label">Education</p>
+  <div class="edu-card">
+    <p class="edu-degree">B.Sc. Systems Engineering</p>
+    <p class="edu-school">Universidad Católica del Norte, Medellín &middot; 2015 – 2017</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Languages -->
+  <p class="section-label">Languages</p>
+  <div class="langs">
+    <div class="lang-card">
+      <p class="lang-name">Spanish</p>
+      <p class="lang-level">Native &middot; C2</p>
+    </div>
+    <div class="lang-card">
+      <p class="lang-name">English</p>
+      <p class="lang-level">Upper-Intermediate &middot; B2</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Certifications -->
+  <p class="section-label">Certifications</p>
+  <ul class="certs">
+    <li class="cert">
+      <svg class="cert-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Basics of GraphQL with Ruby on Rails
+    </li>
+    <li class="cert">
+      <svg class="cert-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Optimizing MongoDB Performance with Tuning Tools
+    </li>
+    <li class="cert">
+      <svg class="cert-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Secure Application Development
+    </li>
+  </ul>
+
+</main>
+</body>
+</html>
