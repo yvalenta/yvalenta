@@ -19,8 +19,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   Notes from Yonatan Valencia — Sr. Software & AI Integration Engineer.
   Ruby on Rails, agentic AI workflows, self-hosted infrastructure and
   verifiable compute.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # el sitio se sirve en la raiz del dominio, no en un subpath
+url: "https://cv.ynt.codes" # el destino: ver CV.md
 twitter_username: yvalenciat
 github_username:  yvalenta
 
