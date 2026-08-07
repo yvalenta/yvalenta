@@ -135,7 +135,7 @@ https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/
 
 ### 🌐 Published on `ynt.codes`
 
-Eleven hostnames, three different ways in. Verified live:
+Twelve hostnames, three different ways in. Verified live:
 
 | Host | How it gets there | What it serves |
 | :--- | :--- | :--- |

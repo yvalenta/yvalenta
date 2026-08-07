@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<svg width="1400" height="1340" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<svg width="1400" height="1440" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  <title>Skills &amp; Projects Knowledge Map — Yonatan Valencia 2026</title>
  <defs>
   <style>.bg { fill: #0d1117; }
@@ -90,7 +90,7 @@
  <!-- ===== Legend ===== -->
  <g class="layer">
   <title>Layer 1</title>
-  <rect class="bg" height="1340" id="svg_1" transform="matrix(1 0 0 1 0 0)" width="1400"/>
+  <rect class="bg" height="1440" id="svg_1" transform="matrix(1 0 0 1 0 0)" width="1400"/>
   <g id="svg_2" opacity="0.05">
    <line id="svg_3" stroke="#c9d1d9" stroke-width="0.5" x1="0" x2="1400" y1="150" y2="150"/>
    <line id="svg_4" stroke="#c9d1d9" stroke-width="0.5" x1="0" x2="1400" y1="300" y2="300"/>
@@ -100,12 +100,12 @@
    <line id="svg_8" stroke="#c9d1d9" stroke-width="0.5" x1="0" x2="1400" y1="900" y2="900"/>
    <line id="svg_9" stroke="#c9d1d9" stroke-width="0.5" x1="0" x2="1400" y1="1050" y2="1050"/>
    <line id="svg_10" stroke="#c9d1d9" stroke-width="0.5" x1="0" x2="1400" y1="1200" y2="1200"/>
-   <line id="svg_11" stroke="#c9d1d9" stroke-width="0.5" x1="140" x2="140" y1="0" y2="1340"/>
-   <line id="svg_12" stroke="#c9d1d9" stroke-width="0.5" x1="350" x2="350" y1="0" y2="1340"/>
-   <line id="svg_13" stroke="#c9d1d9" stroke-width="0.5" x1="560" x2="560" y1="0" y2="1340"/>
-   <line id="svg_14" stroke="#c9d1d9" stroke-width="0.5" x1="770" x2="770" y1="0" y2="1340"/>
-   <line id="svg_15" stroke="#c9d1d9" stroke-width="0.5" x1="980" x2="980" y1="0" y2="1340"/>
-   <line id="svg_16" stroke="#c9d1d9" stroke-width="0.5" x1="1190" x2="1190" y1="0" y2="1340"/>
+   <line id="svg_11" stroke="#c9d1d9" stroke-width="0.5" x1="140" x2="140" y1="0" y2="1440"/>
+   <line id="svg_12" stroke="#c9d1d9" stroke-width="0.5" x1="350" x2="350" y1="0" y2="1440"/>
+   <line id="svg_13" stroke="#c9d1d9" stroke-width="0.5" x1="560" x2="560" y1="0" y2="1440"/>
+   <line id="svg_14" stroke="#c9d1d9" stroke-width="0.5" x1="770" x2="770" y1="0" y2="1440"/>
+   <line id="svg_15" stroke="#c9d1d9" stroke-width="0.5" x1="980" x2="980" y1="0" y2="1440"/>
+   <line id="svg_16" stroke="#c9d1d9" stroke-width="0.5" x1="1190" x2="1190" y1="0" y2="1440"/>
   </g>
   <line class="e-ai e-flow" id="svg_17" x1="700" x2="295" y1="650" y2="240"/>
   <line class="e-dep e-flow2" id="svg_18" x1="700" x2="700" y1="650" y2="140"/>
@@ -248,7 +248,7 @@
    <text fill="#13BEF9" font-size="10.5" font-weight="700" id="svg_134" text-anchor="middle" x="700" y="452">🌐  HOMELAB-TUNNEL · CLOUDFLARE ROUTING</text>
    <text class="t-sm" id="svg_135" text-anchor="middle" x="700" y="470">túnel → nomicheck · advance-fitness-app (+ comercial · join · vital-fitness) · homelab · loan_calculator</text>
    <text class="t-sm" id="svg_136" text-anchor="middle" x="700" y="484">Worker de Cloudflare, sin servidor → ynt.codes (agent card · catálogo ARD · verificador) y cv</text>
-   <text class="t-sm" id="svg_137" text-anchor="middle" x="700" y="498">resplandor → GitHub Pages · advance-fitness → Netlify · 1 túnel nombrado, sin puertos abiertos</text>
+   <text class="t-sm" id="svg_137" text-anchor="middle" x="700" y="498">resplandor · 911-urban-salon → GitHub Pages · advance-fitness → Netlify · 1 túnel nombrado, sin puertos abiertos</text>
    <text class="t-yr" id="svg_138" text-anchor="middle" x="700" y="516">docker-lab_proxy-network → rails-app:80 · nomicheck-api 127.0.0.1:3002 · nomicheck-db en red aislada</text>
   </g>
   <g class="fi2" id="svg_139">
@@ -467,25 +467,35 @@
    <text class="t-sm" id="svg_p7l2" text-anchor="middle" x="1288" y="1232">+ landing y marca</text>
    <text class="t-yr" id="svg_p7y" text-anchor="middle" x="1288" y="1250">Emprendimiento · Activo</text>
   </g>
-  <rect fill="#161b22" height="36" id="svg_284" rx="7" stroke="#30363d" stroke-width="0.5" width="1368" x="16" y="1290"/>
-  <circle cx="36" cy="1308" fill="#F38020" id="svg_lg0" r="5"/>
-  <text class="t-leg" id="svg_lt0" x="46" y="1312">AI &amp; Agentic</text>
-  <circle cx="160" cy="1308" fill="#58a6ff" id="svg_lg1" r="5"/>
-  <text class="t-leg" id="svg_lt1" x="170" y="1312">Core Backend</text>
-  <circle cx="290" cy="1308" fill="#3fb950" id="svg_lg2" r="5"/>
-  <text class="t-leg" id="svg_lt2" x="300" y="1312">Infra &amp; Ops</text>
-  <circle cx="408" cy="1308" fill="#e3b341" id="svg_lg3" r="5"/>
-  <text class="t-leg" id="svg_lt3" x="418" y="1312">Observability</text>
-  <circle cx="535" cy="1308" fill="#13BEF9" id="svg_lg4" r="5"/>
-  <text class="t-leg" id="svg_lt4" x="545" y="1312">Deploy / DevOps</text>
-  <circle cx="690" cy="1308" fill="#D67449" id="svg_lg5" r="5"/>
-  <text class="t-leg" id="svg_lt5" x="700" y="1312">Marca &amp; Negocio</text>
-  <circle cx="838" cy="1308" fill="#db61a2" id="svg_lg6" r="5"/>
-  <text class="t-leg" id="svg_lt6" x="848" y="1312">Verifiable</text>
-  <circle cx="945" cy="1308" fill="#a371f7" id="svg_lg7" r="5"/>
-  <text class="t-leg" id="svg_lt7" x="955" y="1312">Projects</text>
-  <circle cx="1040" cy="1308" fill="#a371f7" id="svg_lg8" opacity="0.5" r="5" stroke="#a371f7" stroke-width="1.5"/>
-  <text class="t-leg" id="svg_lt8" x="1052" y="1312">✦ Active project</text>
-  <text class="t-leg" id="svg_301" text-anchor="end" x="1372" y="1312">Yonatan Valencia · Skills Map · 2026</text>
+  <line class="e-proj" id="svg_67b" x1="700" x2="700" y1="1095" y2="1266"/>
+  <g class="fi4" id="svg_p8">
+   <rect class="s-resp" height="90" id="svg_p8r" rx="9" width="180" x="610" y="1266"/>
+   <rect fill="none" height="90" id="svg_p8o" opacity="0.6" rx="9" stroke="#D67449" stroke-width="1.5" width="180" x="610" y="1266"/>
+   <text class="t-marca" id="svg_p8t" text-anchor="middle" x="700" y="1286">✦ 911 Urban Salón</text>
+   <text class="t-sm" id="svg_p8l0" text-anchor="middle" x="700" y="1302">Barbería · El Poblado, Medellín</text>
+   <text class="t-sm" id="svg_p8l1" text-anchor="middle" x="700" y="1315">turnos en vivo · caja · Supabase</text>
+   <text class="t-sm" id="svg_p8l2" text-anchor="middle" x="700" y="1328">+ landing y marca</text>
+   <text class="t-yr" id="svg_p8y" text-anchor="middle" x="700" y="1346">Emprendimiento · Activo</text>
+  </g>
+  <rect fill="#161b22" height="36" id="svg_284" rx="7" stroke="#30363d" stroke-width="0.5" width="1368" x="16" y="1390"/>
+  <circle cx="36" cy="1408" fill="#F38020" id="svg_lg0" r="5"/>
+  <text class="t-leg" id="svg_lt0" x="46" y="1412">AI &amp; Agentic</text>
+  <circle cx="160" cy="1408" fill="#58a6ff" id="svg_lg1" r="5"/>
+  <text class="t-leg" id="svg_lt1" x="170" y="1412">Core Backend</text>
+  <circle cx="290" cy="1408" fill="#3fb950" id="svg_lg2" r="5"/>
+  <text class="t-leg" id="svg_lt2" x="300" y="1412">Infra &amp; Ops</text>
+  <circle cx="408" cy="1408" fill="#e3b341" id="svg_lg3" r="5"/>
+  <text class="t-leg" id="svg_lt3" x="418" y="1412">Observability</text>
+  <circle cx="535" cy="1408" fill="#13BEF9" id="svg_lg4" r="5"/>
+  <text class="t-leg" id="svg_lt4" x="545" y="1412">Deploy / DevOps</text>
+  <circle cx="690" cy="1408" fill="#D67449" id="svg_lg5" r="5"/>
+  <text class="t-leg" id="svg_lt5" x="700" y="1412">Marca &amp; Negocio</text>
+  <circle cx="838" cy="1408" fill="#db61a2" id="svg_lg6" r="5"/>
+  <text class="t-leg" id="svg_lt6" x="848" y="1412">Verifiable</text>
+  <circle cx="945" cy="1408" fill="#a371f7" id="svg_lg7" r="5"/>
+  <text class="t-leg" id="svg_lt7" x="955" y="1412">Projects</text>
+  <circle cx="1040" cy="1408" fill="#a371f7" id="svg_lg8" opacity="0.5" r="5" stroke="#a371f7" stroke-width="1.5"/>
+  <text class="t-leg" id="svg_lt8" x="1052" y="1412">✦ Active project</text>
+  <text class="t-leg" id="svg_301" text-anchor="end" x="1372" y="1412">Yonatan Valencia · Skills Map · 2026</text>
  </g>
 </svg>
