@@ -150,6 +150,7 @@ Eleven hostnames, three different ways in. Verified live:
 | [`advance-fitness.ynt.codes`](https://advance-fitness.ynt.codes) | CNAME → Netlify | Advance Fitness — landing page |
 | [`loan_calculator.ynt.codes`](https://loan_calculator.ynt.codes) | Tunnel | *Simulador de Abonos a Capital* |
 | [`resplandor.ynt.codes`](https://resplandor.ynt.codes) | CNAME → GitHub Pages | *Resplandor — POS* |
+| [`911-urban-salon.ynt.codes`](https://911-urban-salon.ynt.codes) | CNAME → GitHub Pages | *911 Urban Salón* — barbershop site + live queue panel |
 
 ### 🔍 Key Engineering Learnings
 * Deploying a single persistent outbound tunnel with `cloudflared` to bypass **CGNAT** restrictions, eliminating the need for any open port on the home network.
@@ -189,6 +190,7 @@ Alongside engineering, I design and build the digital presence — and increasin
 | Project | Description |
 | :--- | :--- |
 | **[Resplandor](https://resplandor.ynt.codes)** | Colombian restaurant & bar in La Estrella, Antioquia. Full brand system and landing page, plus a working **point-of-sale**: table map, orders, split billing, pre-checks and end-of-day close. |
+| **[911 Urban Salón](https://911-urban-salon.ynt.codes)** | Barbershop, spa & massage studio in El Poblado, Medellín. Graffiti-brand landing with a multi-service booking assistant, plus a **live operations panel** (`/admin`): shared realtime queue, per-barber logins with role-based views, attention confirmation with POS-style checkout, product sales and daily cash summary — Supabase (Postgres RLS + Realtime + Storage), content edited from the panel and published straight to the page. |
 | **FungiLab** | Functional mushroom supplement brand — product-focused landing with animated visual components. |
 
-**Stack:** single-file HTML · Tailwind CSS (JIT via CDN) with custom brand tokens · Alpine.js · Lucide Icons · AOS scroll animations · Google Fonts · Supabase for the POS.
+**Stack:** single-file HTML · Tailwind CSS (JIT via CDN) or design-system tokens with custom brand palettes · Alpine.js / React via CDN · Lucide Icons · AOS scroll animations · Google Fonts · Supabase for the POS and the salon queue.
