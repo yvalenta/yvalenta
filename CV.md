@@ -7,37 +7,36 @@ Está en la **raíz del repo a propósito**, no en una subcarpeta: es lo que est
 repo publica. GitHub Pages copia un `index.html` sin front matter tal cual, así
 que lo que se ve es exactamente lo que hay acá.
 
-## Dónde se ve hoy, y dónde debería verse
+## Dónde se ve
 
-Medido el 2026-08-03:
+Medido el 2026-08-11, tras la migración:
 
-| URL | Qué sirve hoy |
+| URL | Qué sirve |
 |---|---|
-| `https://yvalenta.github.io/yvalenta/` | **este repo**, por GitHub Pages |
-| `https://cv.ynt.codes` | un **Worker de Cloudflare** (`hidden-art-0f96`) con su propia copia, sin fuente en ningún repo |
+| `https://cv.ynt.codes` | **este repo**, por GitHub Pages — dominio propio, HTTPS forzado |
+| `https://yvalenta.github.io/yvalenta/` | lo mismo (Pages redirige al dominio propio) |
 
-Los dos publican un CV y **no son el mismo archivo**: al medirlo, el Worker
-servía 21.685 bytes y este repo 32.848. Ahí está toda la explicación de por qué
-el CV publicado se quedaba atrás — actualizarlo exigía acordarse de pegar el
-HTML en el panel de Cloudflare.
+**Publicar el CV es `git push`.** El `CNAME` de la raíz es lo que ata el
+dominio; borrarlo lo desata.
 
-## Para que `cv.ynt.codes` sea este repo
+## La migración, ya ejecutada (2026-08-11)
 
-Tres pasos, **en este orden**. El segundo sin el primero deja el sitio
-inalcanzable: al aparecer un `CNAME`, Pages deja de servir en `github.io` y
-empieza a esperar el dominio propio.
+`cv.ynt.codes` fue un **Worker de Cloudflare** (`hidden-art-0f96`) con su propia
+copia pegada a mano, sin fuente en ningún repo: al medirlo el 2026-08-03, el
+Worker servía 21.685 bytes y este repo 32.848 — el CV publicado se quedaba
+atrás porque actualizarlo exigía acordarse de pegar el HTML en el panel.
 
-1. En Cloudflare: borrar el registro de `cv.ynt.codes` que apunta al Worker y
-   crear un `CNAME` a `yvalenta.github.io` **sin proxy** (nube gris). Con el
-   proxy encendido, la validación del dominio de Pages no pasa.
-2. En este repo: `Settings → Pages → Custom domain` = `cv.ynt.codes`. Eso crea
-   el archivo `CNAME` en la raíz.
+Los tres pasos que lo arreglaron, **en este orden** (el segundo sin el primero
+deja el sitio inalcanzable):
+
+1. En Cloudflare: soltar el *custom domain* del Worker y crear un `CNAME` a
+   `yvalenta.github.io` **sin proxy** (nube gris) — con proxy, la validación
+   del dominio de Pages no pasa.
+2. En este repo: el archivo `CNAME` en la raíz + custom domain en Pages.
 3. Esperar el certificado y marcar *Enforce HTTPS*.
 
-Desde entonces, publicar el CV es `git push`.
-
-Hasta que eso pase, `cv.ynt.codes` sigue mostrando la copia vieja del Worker: no
-hay forma de actualizarla desde acá.
+El Worker `hidden-art-0f96` quedó vivo en la cuenta, ya sin dominio: no sirve
+nada y no cuesta nada, pero que nadie lo redescubra como "el CV".
 
 ## Comprobar lo servido, no lo editado
 
