@@ -19,7 +19,7 @@
 
 With over a decade of experience in the **Ruby on Rails** ecosystem and backend engineering, I currently specialize in the convergence of traditional software engineering and **Artificial Intelligence**.
 
-I build agentic workflows (LangChain, n8n, Anthropic Claude, Gemini, Amazon Bedrock) and design robust DevOps infrastructures — from zero-downtime **Kamal 2** deploys to a fully self-hosted **home lab** exposed through a single Cloudflare Tunnel with no open ports. Lately my main line of work is **verifiable compute**: outputs that a third party can check without trusting whoever produced them — see [NomiCheck](#-nomicheck--verifiable-payroll) below.
+I build agentic workflows (LangChain, n8n, Anthropic Claude, Gemini, Amazon Bedrock) and design robust DevOps infrastructures — from zero-downtime **Kamal 2** deploys to a fully self-hosted **home lab** exposed through a single Cloudflare Tunnel with no open ports. Lately my main line of work is **verifiable compute**: outputs that a third party can check without trusting whoever produced them, sold **agent-to-agent** over `x402` micropayments — see [NomiCheck](#-nomicheck--verifiable-payroll) below.
 
 When I'm not optimizing containers or integrating APIs, I enjoy structured swim training and exploring the intersection of technology and brand development within the hospitality and gastronomy sector — currently building the digital presence and point-of-sale system for **Resplandor**, a Colombian restaurant in La Estrella, Antioquia.
 
@@ -98,9 +98,10 @@ very little. Live at **[nomicheck.ynt.codes](https://nomicheck.ynt.codes)**.
 | :--- | :--- |
 | **Dated legal catalog** | Every statutory parameter — minimum wage, transport allowance, UVT, night and Sunday premiums, the ordinary-hour divisor, social-security rates, garnishment and withholding caps — resolvable on **any** date since 2020, each with the decree or resolution that set it and the window it was in force. |
 | **Deterministic calculators** | Payroll, withholding tax, payslip verification, final settlement, USDC payout. Every response cites its legal basis (CST, E.T. art. 383/388) and carries the `sha256` of the catalog that produced it. |
-| **Signed envelopes** | Each output is signed **Ed25519**. Anyone can verify it at [`ynt.codes/verificar`](https://ynt.codes/verificar) — the page runs entirely in the browser and sends nothing to any server, so verification never depends on trusting the issuer. |
-| **x402 paywall** | The priced endpoints answer `402 Payment Required` before doing any work, and settle in **USDC on Base** (EIP-3009). Charge first, then serve — a wall that serves before it collects is not a wall. |
-| **Agent identity** | An **ERC-8004** identity on Base mainnet, published as an A2A **agent card** and an **ARD catalog** at [`ynt.codes`](https://ynt.codes), with **ERC-8128** request signing against Execution Market. |
+| **Signed envelopes** | Each output is signed **Ed25519** in an open **CC0 format — the [sobre](https://github.com/yvalenta/sobre)** — with a frozen canonicalization, published test vectors and a conformance suite anyone can run against their own implementation: Ruby, Node and the browser already produce **byte-identical** signatures, and an implementer's guide invites more. Verify at [`ynt.codes/verificar`](https://ynt.codes/verificar) — the page runs entirely in the browser and sends nothing anywhere, so verification never depends on trusting the issuer. |
+| **x402 paywall** | The priced endpoints answer `402 Payment Required` before doing any work, and settle in **USDC on Base and Avalanche** (EIP-3009) — each network routed to its own facilitator, and the server **refuses to boot** if a network is routed to one that cannot settle it. Charge first, then serve — a wall that serves before it collects is not a wall. |
+| **MCP server** | Any MCP-capable agent gets five tools to discover, verify and **buy**: structured `402` terms, schema, worked example, local envelope verification — and a cross-check of the payment address in the live `402` against the published agent card, so an intercepted wall cannot silently redirect funds. |
+| **Agent identity** | An **ERC-8004** identity on Base mainnet, published as an A2A **agent card** and an **ARD catalog** at [`ynt.codes`](https://ynt.codes), with **ERC-8128** request signing against **Execution Market — where the service is listed and sold agent-to-agent**, delivery returned inline and signed. |
 | **Stateless by design** | Input JSON is processed in memory and discarded — never written to a database (Ley 1581/2012, *habeas data*). |
 
 Verify one end-to-end, in one click, with nothing installed and no account:
@@ -132,6 +133,7 @@ https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/
 | **Deploy** | Kamal 2 + Thruster (Rails) · `deploy.sh` + Compose (NomiCheck) | Zero-downtime deploys, remote `amd64` builds over SSH, extended drain window for long-running AI jobs. |
 | **Database** | Supabase (PostgreSQL 17) · local `postgres:17` | Managed Postgres via AWS pooler for the Rails side; NomiCheck's own Postgres sits on a **private network unreachable from the tunnel**, because it holds payroll PII. |
 | **Monitoring** | Netdata + Uptime Kuma | Real-time telemetry (CPU, memory, SSH sessions, nginx traffic, Docker stats) and uptime checks. Uptime Kuma is bound to **loopback**, not to `0.0.0.0` — it has no public hostname. |
+| **Agent fleet** | Ergo IRC (self-hosted) + herdr | Agent sessions on different machines talk through a **private IRC rendezvous** on the LAN — TLS with a pinned certificate, messages treated as data, never as instructions — while **herdr** keeps the box's Claude Code session alive across restarts. The ops dashboard reads the whole fleet over one SSH round-trip, **read-only by design**. |
 
 ### 🌐 Published on `ynt.codes`
 
