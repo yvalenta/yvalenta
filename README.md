@@ -121,7 +121,7 @@ https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/
 
 ## 🏠 Home Lab &amp; Production: AI-Assisted Infrastructure
 
-> Two hosts behind one front door, with no inbound ports on either. Payroll production moved to a managed host in August 2026; the home lab kept everything else — and a cold standby of production. Everything is designed, debugged, and documented with AI assistance.
+> Two hosts behind one front door, with no inbound ports on either. In August 2026 the whole public surface moved to a managed host; the home lab kept its tunnel **stopped** and became something else entirely — the agent fleet, the read-only panels, and a standby nobody can reach. Everything is designed, debugged, and documented with AI assistance.
 
 <div align="center">
   <img src="./homelab-architecture.svg" alt="Home Lab Architecture" width="90%">
@@ -132,7 +132,8 @@ https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/
 | Layer | Tool | Primary Function |
 | :--- | :--- | :--- |
 | **Tunnel** | Cloudflare Tunnel + `cloudflared` | Secure public exposure — zero open ports (Zero Trust), outbound-only, on both hosts. Moving production between them **did not change DNS**. |
-| **Production host** | AWS Lightsail (`us-east-2`) | Runs the payroll API since **2026-08-05** — static IP, port 80 closed. The home lab stayed as a **cold standby** carrying the same commit, the same signing key and the same database, which is what makes promoting it harmless. Rehearsed live: **zero requests dropped**. |
+| **Production host** | AWS Lightsail (`us-east-2`) | Since **2026-08-05**, *every publicly reachable hostname* is served from here — the payroll API, the Rails app across its four tenants, the static apps, and the only `cloudflared` actually running. Static IP, port 80 closed. Rehearsed live: **zero requests dropped**. |
+| **What the home lab does now** | 192.168.40.253 — tunnel stopped | It publishes **nothing**, deliberately: `cloudflared` is stopped there. It holds the agent fleet, the read-only panels, host monitoring, and a standby whose containers are up but unreachable — same commit, same signing key, same database. The Rails half stays **off**: two copies once saturated the database pooler *and* served two versions at once, which is how a tenant's login started showing the wrong brand. |
 | **Self-healing** | Compose `healthcheck` + `autoheal` · `centinela` (cron) | Covers the case `restart: unless-stopped` never did — a process that is alive but cannot serve. **Measured by freezing the process: 47 s.** For the case that the whole box dies, the home lab's own watchdog promotes the standby after 3 min of silence — never if it cannot serve either, and never touching the other tunnel. |
 | **Edge** | Cloudflare Workers | Serves the apex (`ynt.codes`) with **no server involved** — agent card, ARD catalog, envelope verifier and landing are embedded in the Worker, which answers by content negotiation: agents asking for the root get the card, browsers get HTML. |
 | **Static hosting** | GitHub Pages · Netlify | The CV, Resplandor, 911 Urban Salón and nagual are served entirely off my infrastructure — **turning the machine off does not take them down**, which is exactly why "everything on the domain runs in the home lab" is the kind of sentence that quietly rots in a README. |
@@ -153,13 +154,13 @@ Four different ways in — and **no count in this heading on purpose**: a number
 | [`nomicheck.ynt.codes`](https://nomicheck.ynt.codes) | Tunnel → **Lightsail** | **NomiCheck** — *Tu nómina, verificada* |
 | [`cv.ynt.codes`](https://cv.ynt.codes) | CNAME → GitHub Pages | CV / portfolio — publishing it is `git push` |
 | [`nagual.ynt.codes`](https://nagual.ynt.codes) | CNAME → GitHub Pages | **nagual** — signed evidence for the market-signal work |
-| [`homelab.ynt.codes`](https://homelab.ynt.codes) | Tunnel → home lab | *Ynt-labs · Homelab Architecture* — this lab, documented live |
-| [`advance-fitness-app.ynt.codes`](https://advance-fitness-app.ynt.codes) | Tunnel | Advance Fitness — gym platform (login) |
-| [`comercial.ynt.codes`](https://comercial.ynt.codes) | Tunnel | Advance Fitness — tenant (login) |
-| [`join.ynt.codes`](https://join.ynt.codes) | Tunnel | Advance Fitness — tenant (login) |
-| [`vital-fitness.ynt.codes`](https://vital-fitness.ynt.codes) | Tunnel | Advance Fitness — tenant *Vital fitness* (login) |
+| [`homelab.ynt.codes`](https://homelab.ynt.codes) | Tunnel → **Lightsail** | *Ynt-labs · Homelab Architecture* — the page documenting the home lab, served from the managed host |
+| [`advance-fitness-app.ynt.codes`](https://advance-fitness-app.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — gym platform (login) |
+| [`comercial.ynt.codes`](https://comercial.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — tenant (login) |
+| [`join.ynt.codes`](https://join.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — tenant (login) |
+| [`vital-fitness.ynt.codes`](https://vital-fitness.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — tenant *Vital fitness* (login) |
 | [`advance-fitness.ynt.codes`](https://advance-fitness.ynt.codes) | CNAME → Netlify | Advance Fitness — landing page |
-| [`loan_calculator.ynt.codes`](https://loan_calculator.ynt.codes) | Tunnel | *Simulador de Abonos a Capital* |
+| [`loan_calculator.ynt.codes`](https://loan_calculator.ynt.codes) | Tunnel → **Lightsail** | *Simulador de Abonos a Capital* |
 | [`resplandor.ynt.codes`](https://resplandor.ynt.codes) | CNAME → GitHub Pages | *Resplandor — POS* |
 | [`911-urban-salon.ynt.codes`](https://911-urban-salon.ynt.codes) | CNAME → GitHub Pages | *911 Urban Salón* — barbershop site + live queue panel |
 
@@ -171,6 +172,7 @@ Four different ways in — and **no count in this heading on purpose**: a number
 * Putting the payroll database on its **own isolated Docker network**, so `cloudflared` cannot reach it even if a routing rule is written by mistake — and moving Uptime Kuma off `0.0.0.0` after auditing what the host was actually listening on.
 * Making the deploy **measure what it served** rather than what it intended: exporting a variable is not the same as delivering it to the container, and a deploy that silently didn't looks exactly like one that did.
 * Rehearsing the **failover instead of assuming it** — moving production to a managed host and promoting the old one back, live, with zero requests dropped. A standby nobody has ever promoted is a hypothesis, not a backup.
+* Learning why that standby now stays **deliberately off** rather than warm: with both copies running, they exhausted the database pooler's connections *and* split traffic across two versions of the app — which is how one tenant's login started rendering another tenant's brand. Failover is manual and one-way on purpose.
 * Finding, while load-testing something else, that the **per-IP rate limit was bypassable** by rotating `X-Forwarded-For` (40/40 got through against a cap of 10) because the payment wall set `trust proxy` in a different file. The key now comes from `CF-Connecting-IP`.
 * Keeping the public status panel in a **separate process that never loads the wallet code at all** — a guarantee an allowlist cannot give you, because it cannot leak what it never had in memory.
 
