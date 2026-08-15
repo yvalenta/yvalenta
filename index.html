@@ -535,7 +535,7 @@
 
   <!-- Summary -->
   <p class="section-label">Summary</p>
-  <p class="summary">Software engineer with over 10 years of experience, specializing in the convergence of distributed systems, Artificial Intelligence, and secure cloud infrastructure. Proven expertise in architecting enterprise-grade agentic workflows (LangChain, Claude) and designing Zero Trust infrastructure topologies utilizing Docker, Cloudflare Tunnels, and real-time telemetry. Alongside client work I design, ship and operate my own production systems — most recently NomiCheck, a Colombian payroll engine whose every result is cryptographically signed and independently verifiable, running on self-hosted infrastructure with no inbound ports open.</p>
+  <p class="summary">Software engineer with over 10 years of experience, specializing in the convergence of distributed systems, Artificial Intelligence, and secure cloud infrastructure. Proven expertise in architecting enterprise-grade agentic workflows (LangChain, Claude) and designing Zero Trust infrastructure topologies utilizing Docker, Cloudflare Tunnels, and real-time telemetry. Alongside client work I design, ship and operate my own production systems — most recently NomiCheck, a Colombian payroll engine whose every result is cryptographically signed and independently verifiable, sold agent-to-agent behind an on-chain payment wall. The habit underneath all of it is measuring before believing, my own documentation included: after my docs passed six consecutive audits while publicly serving a wallet I had already rotated, I started building the auditors that compare what is written against what the servers actually return.</p>
 
   <div class="divider"></div>
 
@@ -591,10 +591,11 @@
         <span class="skill-tag">Ed25519 signatures</span>
         <span class="skill-tag">Canonical JSON</span>
         <span class="skill-tag">x402 payment wall</span>
-        <span class="skill-tag">USDC on Base (EIP-3009)</span>
+        <span class="skill-tag">USDC on Base &amp; Avalanche (EIP-3009)</span>
         <span class="skill-tag">ERC-8004 agent identity</span>
         <span class="skill-tag">ERC-8128 request signing</span>
         <span class="skill-tag">A2A agent cards</span>
+        <span class="skill-tag">MCP servers</span>
         <span class="skill-tag">IPFS</span>
       </div>
     </div>
@@ -634,10 +635,34 @@
         <p class="project-name">Home Lab &amp; Zero Trust Infrastructure</p>
         <a class="project-link" href="https://homelab.ynt.codes" target="_blank">homelab.ynt.codes &#8599;</a>
       </div>
-      <p class="project-kicker">Single-node server in Medellín running every one of the systems above</p>
-      <p class="project-desc">One machine — Intel i5-4570T, 7.2 GB RAM, Ubuntu 25.04, Docker 29.6.1 — carrying the production workloads behind <code>ynt.codes</code>. Nine public hostnames are live on the domain; everything self-hosted among them reaches the internet through a single Cloudflare Tunnel — outbound-only, no inbound ports, TLS and WAF at the edge — while the rest is served from Cloudflare Workers and GitHub Pages. Rails services deploy with Kamal 2, static apps from nginx containers, and Uptime Kuma watches what is exposed. The payroll database sits on an isolated Docker network that neither the tunnel daemon nor any sibling container can reach. A hardening pass moved the monitor off <code>0.0.0.0</code> onto loopback and removed two orphaned tunnels still pointing at containers that no longer existed. Agent sessions across machines coordinate through <em>sigilo</em>, a self-hosted IRC rendezvous authenticated by a pinned TLS fingerprint rather than a CA — channel content is always treated as data, never as instructions — while <em>herdr</em> keeps each box's Claude Code session alive across restarts and resumable; an internal dashboard reads the whole fleet over a single read-only SSH round-trip. The architecture is published as a live, clickable diagram at the address above.</p>
+      <p class="project-kicker">Two hosts behind one front door, neither with an inbound port open</p>
+      <p class="project-desc">Payroll production runs on <strong>AWS Lightsail</strong> (us-east-2) since August 2026 — static IP, port 80 closed, container-level self-healing that I measured by freezing the process on purpose: 47 s to recovery. The single-node home lab in Medellín — Intel i5-4570T, 7.2 GB RAM, Ubuntu 25.04, Docker 29.6.1 — keeps everything else <em>and a cold standby of production</em>, carrying the same commit, the same signing key and the same database, which is what makes promoting it harmless. I rehearsed that promotion live rather than assuming it: <strong>zero requests dropped</strong>. Both hosts reach the internet through outbound-only Cloudflare Tunnels, so moving production between them did not change a single DNS record; the rest of the domain is served with no server at all, from Workers, GitHub Pages and Netlify — which is precisely why "everything on the domain runs in the home lab" was a sentence worth deleting. Rails services deploy with Kamal 2; the payroll database sits on an isolated Docker network neither the tunnel daemon nor any sibling container can reach. Agent sessions across machines coordinate through <em>sigilo</em>, a self-hosted IRC rendezvous authenticated by a pinned TLS fingerprint rather than a CA — regenerate the cert and the client refuses to speak until a human updates the pin — with channel content always treated as data, never as instructions. The ops panels are read-only and bound to loopback, reached over an SSH tunnel instead of a homemade login; the one panel that <em>is</em> public runs as a separate process that never loads the wallet code at all, so it cannot leak what it never had. The architecture is published as a live, clickable diagram at the address above.</p>
       <div class="job-tools">
-        <span class="tool">Cloudflare Zero Trust</span><span class="tool">Cloudflare Workers</span><span class="tool">Docker</span><span class="tool">Kamal 2</span><span class="tool">nginx</span><span class="tool">PostgreSQL 17</span><span class="tool">Uptime Kuma</span><span class="tool">Ubuntu</span>
+        <span class="tool">AWS Lightsail</span><span class="tool">Cloudflare Zero Trust</span><span class="tool">Cloudflare Workers</span><span class="tool">Docker</span><span class="tool">Kamal 2</span><span class="tool">nginx</span><span class="tool">PostgreSQL 17</span><span class="tool">Uptime Kuma</span><span class="tool">Ubuntu</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <p class="project-name">The measuring house</p>
+        <a class="project-link" href="https://nagual.ynt.codes" target="_blank">nagual.ynt.codes &#8599;</a>
+      </div>
+      <p class="project-kicker">Five collectors that settle a circulating claim with my own numbers</p>
+      <p class="project-desc">Each one exists because something was being repeated as fact and the honest way to settle it was to measure it. <em>rezago</em> tests a viral thread's "~2.7 second repricing window" by timing Polymarket's CLOB against Binance spot, and reports the edge <em>net</em> of taker fees at the book's real depth. <em>brecha</em> tests "send USDC to Arbitrum and you get more" by quoting executable swaps — not index prices — across seven chains at three sizes, and counting how many opportunities survive every cost. <em>cazadores</em> tests "follow the wallets with 80%+ win rates" by computing those rates myself over resolved trades, with the size of the rare losses kept in view, and produces a calibration curve as a by-product: does a share bought at 80¢ actually win 80% of the time? <em>timon</em> is a small control plane that knows each project's closing criterion, checks it against real data, and opens a gate when one is met — a decision only the human takes, served with its evidence. They share one rule that shaped the whole design: <strong>they measure, they never execute</strong> — no signing, no funds moved, no API key, and they listen on no port at all. Findings land in a vault where dated, sourced state outranks every other note, and every signal carries an expiry so nothing that already closed can be displayed as an opportunity.</p>
+      <div class="job-tools">
+        <span class="tool">Python 3.14</span><span class="tool">asyncio</span><span class="tool">aiohttp</span><span class="tool">WebSockets</span><span class="tool">Ruby stdlib</span><span class="tool">JSONL</span><span class="tool">systemd</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-head">
+        <p class="project-name">sobre — an open format for provable output</p>
+        <a class="project-link" href="https://github.com/yvalenta/sobre" target="_blank">github.com/yvalenta/sobre &#8599;</a>
+      </div>
+      <p class="project-kicker">Released into the public domain, with a conformance suite that lets anyone check their own implementation</p>
+      <p class="project-desc">A minimal format for making an agent's output checkable by a third party without trusting whoever issued it and without reaching its server. Signing alone was not enough: a signed document proves <em>who said it</em>, not that it is right — without knowing which rules produced it and from when, a valid signature is just an opinion with a seal. The spec has a frozen canonicalization, published test vectors, an implementer's guide and an explicit section on what a signature does <strong>not</strong> assert. Ruby, Node and the browser produce byte-identical signatures; the real validation came when another team wrote a fourth implementation in Python from the spec alone and reached identical bytes without ever seeing my code. Their one point of friction — Windows stdin decoding as cp1252 — was paid the same day as a documented toll.</p>
+      <div class="job-tools">
+        <span class="tool">Ed25519</span><span class="tool">Canonical JSON</span><span class="tool">Ruby</span><span class="tool">Node</span><span class="tool">Python</span><span class="tool">CC0 / public domain</span>
       </div>
     </article>
 
