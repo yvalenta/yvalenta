@@ -257,12 +257,12 @@
 
   <g class="fade-7">
     <rect x="686" y="568" width="320" height="112" rx="10" class="card-net"/>
-    <text x="700" y="589" class="label-net">📊 uptime-kuma · Netdata</text>
+    <text x="700" y="589" class="label-net">📊 uptime-kuma</text>
     <text x="700" y="605" class="label-port">127.0.0.1:3001 · loopback only</text>
-    <text x="700" y="621" class="label-sub">CPU · RAM · SSH · nginx · Docker stats</text>
-    <text x="700" y="637" class="label-sub">moved off 0.0.0.0 after auditing what the</text>
-    <text x="700" y="653" class="label-port">host was actually listening on</text>
-    <text x="700" y="669" class="label-port">a monitor that dies with the box it watches</text>
+    <text x="700" y="621" class="label-sub">moved off 0.0.0.0 after auditing what</text>
+    <text x="700" y="637" class="label-sub">the host was actually listening on</text>
+    <text x="700" y="653" class="label-port">a monitor that dies with the box it</text>
+    <text x="700" y="669" class="label-port">watches is a floor, not an SLA</text>
   </g>
 
   <text x="42" y="706" class="section-label">read-only ops panels — bound to loopback; remote is an SSH tunnel, never a homemade login</text>
