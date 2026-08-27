@@ -115,13 +115,13 @@ Verify one end-to-end, in one click, with nothing installed and no account:
 https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/ejemplo
 ```
 
-**Stack:** TypeScript · Express · Prisma · PostgreSQL 17 · React 19 + Vite · pnpm monorepo · viem · Docker Compose on **AWS Lightsail**, with the home lab as a cold standby. The API and the web ship as **one container on one port**, and `/api/health` publishes the exact commit it is running.
+**Stack:** TypeScript · Express · Prisma · PostgreSQL 17 · React 19 + Vite · pnpm monorepo · viem · Docker Compose on **AWS Lightsail**, with a cold standby on the home lab — being restored after that box's disk died in August 2026, which production never noticed. The API and the web ship as **one container on one port**, and `/api/health` publishes the exact commit it is running.
 
 ---
 
 ## 🏠 Home Lab &amp; Production: AI-Assisted Infrastructure
 
-> Two hosts behind one front door, with no inbound ports on either. In August 2026 the whole public surface moved to a managed host; the home lab kept its tunnel **stopped** and became something else entirely — the agent fleet, the read-only panels, and a standby nobody can reach. Everything is designed, debugged, and documented with AI assistance.
+> Two hosts behind one front door, with no inbound ports on either. In August 2026 the whole public surface moved to a managed host; the home lab kept its tunnel **stopped** and became something else entirely — the agent fleet and the read-only panels. Weeks later its disk died outright, and **production never noticed**: the box was rebuilt from its own nightly mirrors and a runbook written while the disk was dying. Everything is designed, debugged, and documented with AI assistance.
 
 <div align="center">
   <img src="./homelab-architecture.svg" alt="Home Lab Architecture" width="90%">
@@ -133,12 +133,12 @@ https://ynt.codes/verificar?url=https://nomicheck.ynt.codes/api/batch/verificar/
 | :--- | :--- | :--- |
 | **Tunnel** | Cloudflare Tunnel + `cloudflared` | Secure public exposure — zero open ports (Zero Trust), outbound-only, on both hosts. Moving production between them **did not change DNS**. |
 | **Production host** | AWS Lightsail (`us-east-2`) | Since **2026-08-05**, *every publicly reachable hostname* is served from here — the payroll API, the Rails app across its four tenants, the static apps, and the only `cloudflared` actually running. Static IP, port 80 closed. Rehearsed live: **zero requests dropped**. |
-| **What the home lab does now** | 192.168.40.253 — tunnel stopped | It publishes **nothing**, deliberately: `cloudflared` is stopped there. It holds the agent fleet, the read-only panels, host monitoring, and a standby whose containers are up but unreachable — same commit, same signing key, same database. The Rails half stays **off**: two copies once saturated the database pooler *and* served two versions at once, which is how a tenant's login started showing the wrong brand. |
-| **Self-healing** | Compose `healthcheck` + `autoheal` · `centinela` (cron) | Covers the case `restart: unless-stopped` never did — a process that is alive but cannot serve. **Measured by freezing the process: 47 s.** For the case that the whole box dies, the home lab's own watchdog promotes the standby after 3 min of silence — never if it cannot serve either, and never touching the other tunnel. |
+| **What the home lab does now** | LAN-only box, addressed by name | It holds the agent fleet, the read-only panels and host monitoring, and publishes exactly **one** read-only surface — the fleet observatory (table below); everything else stays LAN-only. Its disk **died in August 2026**: the corpus came back from the nightly mirrors, the runbook turned recovery into procedure, and the cold standby is being restored deliberately **last** — the standby is the one thing you may rebuild slowly while production is healthy. The Rails half stays **off**: two copies once saturated the database pooler *and* served two versions at once, which is how a tenant's login started showing the wrong brand. |
+| **Self-healing** | Compose `healthcheck` + `autoheal` · `centinela` (cron) | Covers the case `restart: unless-stopped` never did — a process that is alive but cannot serve. **Measured by freezing the process: 47 s.** For the case that the whole box dies, the home lab's watchdog promotes the standby after 3 min of silence — never if it cannot serve either, and never touching the other tunnel. Then the box **did** die, and what held was the boring part: mirrors, runbook, untouched production. The watchdog returns when the standby does. |
 | **Edge** | Cloudflare Workers | Serves the apex (`ynt.codes`) with **no server involved** — agent card, ARD catalog, envelope verifier and landing are embedded in the Worker, which answers by content negotiation: agents asking for the root get the card, browsers get HTML. |
 | **Static hosting** | GitHub Pages · Netlify | The CV, Resplandor, 911 Urban Salón and nagual are served entirely off my infrastructure — **turning the machine off does not take them down**, which is exactly why "everything on the domain runs in the home lab" is the kind of sentence that quietly rots in a README. |
 | **Reverse proxy** | Docker network aliases (`docker-lab_proxy-network`) + nginx | Hostname routing to containers; TLS terminates at the Cloudflare edge. |
-| **Containers** | Docker Compose · Docker 29.6.1 on Ubuntu 25.04 | Execution and isolation of every service on one box (Intel i5-4570T · 7.2 GB). |
+| **Containers** | Docker Compose on Ubuntu Server 24.04 (clean install, August 2026 rebuild) | Execution and isolation of every service on one box (Intel i5-4570T · 7.2 GB). |
 | **Deploy** | Kamal 2 + Thruster (Rails) · `deploy.sh` + Compose (NomiCheck) | Zero-downtime deploys, remote `amd64` builds over SSH, extended drain window for long-running AI jobs. |
 | **Database** | Supabase (PostgreSQL 17) · local `postgres:17` | Managed Postgres via AWS pooler for the Rails side; NomiCheck's own Postgres sits on a **private network unreachable from the tunnel**, because it holds payroll PII. |
 | **Monitoring** | Uptime Kuma (loopback) + GitHub Actions | Uptime Kuma is bound to **loopback**, not `0.0.0.0` — no public hostname. It is a floor, not an SLA: a monitor that lives on the box it watches dies with it, so the external check runs from GitHub Actions instead. Measured honestly: it asks for every 15 min and actually runs every ~111 min, with a worst gap of 6 h. |
@@ -154,6 +154,7 @@ Four different ways in — and **no count in this heading on purpose**: a number
 | [`nomicheck.ynt.codes`](https://nomicheck.ynt.codes) | Tunnel → **Lightsail** | **NomiCheck** — *Tu nómina, verificada* |
 | [`cv.ynt.codes`](https://cv.ynt.codes) | CNAME → GitHub Pages | CV / portfolio — publishing it is `git push` |
 | [`nagual.ynt.codes`](https://nagual.ynt.codes) | CNAME → GitHub Pages | **nagual** — signed evidence for the market-signal work |
+| [`grimorio.ynt.codes`](https://grimorio.ynt.codes) · [`flota.ynt.codes`](https://flota.ynt.codes) | Tunnel → **home lab** | **Grimorio** — the fleet observatory: read-only, structure only, the one thing the home lab publishes |
 | [`homelab.ynt.codes`](https://homelab.ynt.codes) | Tunnel → **Lightsail** | *Ynt-labs · Homelab Architecture* — the page documenting the home lab, served from the managed host |
 | [`advance-fitness-app.ynt.codes`](https://advance-fitness-app.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — gym platform (login) |
 | [`comercial.ynt.codes`](https://comercial.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — tenant (login) |
@@ -175,6 +176,8 @@ Four different ways in — and **no count in this heading on purpose**: a number
 * Learning why that standby now stays **deliberately off** rather than warm: with both copies running, they exhausted the database pooler's connections *and* split traffic across two versions of the app — which is how one tenant's login started rendering another tenant's brand. Failover is manual and one-way on purpose.
 * Finding, while load-testing something else, that the **per-IP rate limit was bypassable** by rotating `X-Forwarded-For` (40/40 got through against a cap of 10) because the payment wall set `trust proxy` in a different file. The key now comes from `CF-Connecting-IP`.
 * Keeping the public status panel in a **separate process that never loads the wallet code at all** — a guarantee an allowlist cannot give you, because it cannot leak what it never had in memory.
+* Watching the dual-pushurl git backup fail **as an AND, not an OR** when the home-lab disk died: one dead remote made git fail the entire push, so the healthy GitHub mirror silently stopped receiving too. The scripts now address the box **by name, not by IP** — an address hard-coded in a backup script is a claim nobody re-measures.
+* Rebuilding the dead box in one night from the mirrors and a runbook **written while the disk was dying** — and moving what lived only inside a Docker volume (the IRC server's config and TLS key) into git and the nightly mirror, where it should have been all along.
 
 ---
 
@@ -225,7 +228,7 @@ Beyond the Home Lab, Artificial Intelligence is the core of my professional work
   └─────────────────────────────────────────────────────┘
 ```
 
-**Advance Fitness** is the flagship application of this stack: a multi-tenant gym management platform (Rails 8.1 · Ruby 4.0.5) with AI-generated, editable training and nutrition plans through a provider adapter layer — `gemini-2.5-flash` by default, `claude-sonnet-5` as fallback — deployed via Kamal 2 on the home lab and backed by Supabase. Four tenants run off the same deployment, each on its own hostname.
+**Advance Fitness** is the flagship application of this stack: a multi-tenant gym management platform (Rails 8.1 · Ruby 4.0.5) with AI-generated, editable training and nutrition plans through a provider adapter layer — `gemini-2.5-flash` by default, `claude-sonnet-5` as fallback — deployed via Kamal 2 on AWS Lightsail (it began on the home lab; production moved in August 2026 with zero requests dropped) and backed by Supabase. Four tenants run off the same deployment, each on its own hostname.
 
 ---
 
