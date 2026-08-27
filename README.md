@@ -154,7 +154,7 @@ Four different ways in — and **no count in this heading on purpose**: a number
 | [`nomicheck.ynt.codes`](https://nomicheck.ynt.codes) | Tunnel → **Lightsail** | **NomiCheck** — *Tu nómina, verificada* |
 | [`cv.ynt.codes`](https://cv.ynt.codes) | CNAME → GitHub Pages | CV / portfolio — publishing it is `git push` |
 | [`nagual.ynt.codes`](https://nagual.ynt.codes) | CNAME → GitHub Pages | **nagual** — signed evidence for the market-signal work |
-| [`grimorio.ynt.codes`](https://grimorio.ynt.codes) · [`flota.ynt.codes`](https://flota.ynt.codes) | Tunnel → **home lab** | **Grimorio** — the fleet observatory: read-only, structure only, the one thing the home lab publishes |
+| [`grimorio.ynt.codes`](https://grimorio.ynt.codes) · [`flota.ynt.codes`](https://flota.ynt.codes) | Tunnel → **home lab** | **Grimorio** — the fleet observatory: read-only, structure only, the one thing the home lab publishes (tunnel freshly rebuilt — still stabilizing) |
 | [`homelab.ynt.codes`](https://homelab.ynt.codes) | Tunnel → **Lightsail** | *Ynt-labs · Homelab Architecture* — the page documenting the home lab, served from the managed host |
 | [`advance-fitness-app.ynt.codes`](https://advance-fitness-app.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — gym platform (login) |
 | [`comercial.ynt.codes`](https://comercial.ynt.codes) | Tunnel → **Lightsail** | Advance Fitness — tenant (login) |
